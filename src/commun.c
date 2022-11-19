@@ -6,13 +6,15 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/18 13:52:07 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:29:53 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
+#include <unistd.h>
 
-void	*memcpy(void *dst, const void *src, size_t n)
+void *
+ft_memcpy(void *dst, const void *src, size_t n)
 {
 	uint8_t			*s1;
 	uint8_t			*s2;
@@ -55,7 +57,10 @@ _int_to_wide_c(int c)
 }
 
 void	
-*memset(void *b, int c, size_t len)
+*ft_memset(
+	void *b,
+	int c,
+	size_t len)
 {
 	uint8_t				*s;
 	t_uwide_int			*wide;
@@ -73,4 +78,21 @@ void
 	while (len--)
 		*s++ = c;
 	return (b);
+}
+
+PRIVATE
+size_t
+ft_strlen(const char *str)
+{
+	size_t len = 0;
+	for (; str[len]; len++);
+	return len;
+}
+
+void
+ft_putstr(const char *s, const int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }
