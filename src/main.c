@@ -6,32 +6,41 @@
 //     return 0;
 // }
 
-#include <stdio.h>
+// #include <stdio.h>
+#include <unistd.h>
 #include <sys/mman.h>
+// #include <stdlib.h>
 
-int main(){
+int main()
+{
 
-int N=5;
-int *ptr = mmap ( NULL, N*sizeof(int),
- PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, 0, 0 );
+    int N=5;
+    // int *ptr;
+    int *ptr = mmap ( NULL, N*sizeof(int),
+    PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0 );
+    // int *ptr = malloc(N*sizeof(int));
 
-if(ptr == MAP_FAILED){
-    printf("Mapping Failed\n");
-    return 1;
-}
+    // if(ptr == MAP_FAILED){
+    //     printf("Mapping Failed\n");
+    //     return 1;
+    // }
 
-for(int i=0; i<N; i++)
-    ptr[i] = i*10;
+    for(int i=0; i<N; i++)
+        ptr[i] = i*10;
 
-for(int i=0; i<N; i++)
-    printf("[%d] ",ptr[i]);
+    for(int i=0; i<N; i++) {
+        // printf("[%d] ",ptr[i]);
+        write(1, "|\n", 2);
+    }
 
-printf("\n");
-int err = munmap(ptr, 10*sizeof(int));
-if(err != 0){
-    printf("UnMapping Failed\n");
-    return 1;
-}
+    // printf("[%ls]\n", &ptr[0] + 5000);
 
-return 0;
+    // printf("\n");
+    // int err = munmap(ptr, 10*sizeof(int));
+    // if(err != 0){
+    //     printf("UnMapping Failed\n");
+    //     return 1;
+    // }
+
+    return 0;
 }

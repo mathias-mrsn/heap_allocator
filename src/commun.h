@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/19 19:08:46 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:53:17 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include "stddef.h"
 #include "mem_block.h"
 
-extern pthread_mutex_t malloc_lock;
-extern mem_block * edges[2];
+// extern pthread_mutex_t malloc_lock;
+// extern mem_block * edges[2];
 
 # ifdef DEBUG
 #   define LOG_ERROR(x) ft_putstr(x, 2);

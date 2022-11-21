@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/19 19:04:16 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:33:07 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,28 @@ create_block (
     mem_block * prev,
     mem_block * next)
 {
-
+    int a = 0;
     // int fd = open ("/dev/zero", );
     // void * ptr = (void *)mmap(NULL, zone_size + BLOCK_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0 );
     // close(fd);
     void * ptr = NULL;
     mem_block * block = (mem_block *)ptr;
     
-    PUTADDR(ptr)
+    LOG("before")
+    // printf("PUTADDR -> %d", a);
+    LOG("after ptr print")
 
-    if (block == MAP_FAILED || block == NULL) {
-        LOG_ERROR("error: mmap() failed")
-        return (MAP_FAILED);
-    }
+    // if (block == MAP_FAILED || block == NULL) {
+    //     LOG_ERROR("error: mmap() failed")
+    //     return (MAP_FAILED);
+    // }
     
-    ft_memset(block, 0, zone_size + BLOCK_SIZE);
-    block->ptr = block + BLOCK_SIZE ;
-    block->state = EMPTY;
-    block->size = zone_size;
-    block->prev = prev;
-    block->next = next;
+    // ft_memset(block, 0, zone_size + BLOCK_SIZE);
+    // block->ptr = block + BLOCK_SIZE ;
+    // block->state = EMPTY;
+    // block->size = zone_size;
+    // block->prev = prev;
+    // block->next = next;
     
     return (block);
 }

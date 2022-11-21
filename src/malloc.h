@@ -6,14 +6,34 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:25:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/19 17:05:17 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/21 13:31:51 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "commun.h"
-#include "mem_block.h"
+#include <stddef.h>
 
 void *
 malloc (size_t);
+
+#define TINY       1024
+#define ZONE_TINY  (TINY * 100)
+
+10000
+
+MMAP 10000 + 30
+
+[..STRUCT..|.10000..|..struct..|..reste.....................................................................................]
+
+r -> 924
+MMAP 1024 + 30
+0x1000 [..struct... | ..................]
+0x10[..struct... | ......................]
+size=924
+struct+924
+
+size=130
+free ? = true 
+
+

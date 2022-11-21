@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/19 18:29:53 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/21 09:53:13 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void
 
 PRIVATE
 size_t
-ft_strlen(const char *str)
+ft_strlen(
+	const char *str)
 {
 	size_t len = 0;
 	for (; str[len]; len++);
@@ -90,7 +91,9 @@ ft_strlen(const char *str)
 }
 
 void
-ft_putstr(const char *s, const int fd)
+ft_putstr(
+	const char *s,
+	const int fd)
 {
 	if (!s)
 		return ;
