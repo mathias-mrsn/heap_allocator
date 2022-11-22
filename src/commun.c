@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/21 09:53:13 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/22 18:36:36 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include <unistd.h>
 
 void *
-ft_memcpy(void *dst, const void *src, size_t n)
+ft_memcpy (
+	void *dst,
+	const void *src,
+	size_t n )
 {
 	uint8_t			*s1;
 	uint8_t			*s2;
@@ -40,8 +43,10 @@ ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-static t_uwide_int
-_int_to_wide_c(int c)
+PRIVATE
+t_uwide_int
+_int_to_wide_c (
+	int c )
 {
 	t_uwide_int	new_c;
 	uint8_t		shift_idx;
@@ -57,10 +62,10 @@ _int_to_wide_c(int c)
 }
 
 void	
-*ft_memset(
+*ft_memset (
 	void *b,
 	int c,
-	size_t len)
+	size_t len )
 {
 	uint8_t				*s;
 	t_uwide_int			*wide;
@@ -82,8 +87,8 @@ void
 
 PRIVATE
 size_t
-ft_strlen(
-	const char *str)
+_ft_strlen (
+	const char *str )
 {
 	size_t len = 0;
 	for (; str[len]; len++);
@@ -91,11 +96,95 @@ ft_strlen(
 }
 
 void
-ft_putstr(
+ft_putstr (
 	const char *s,
-	const int fd)
+	const int fd )
 {
 	if (!s)
 		return ;
-	write(fd, s, ft_strlen(s));
+	write(fd, s, _ft_strlen(s));
+}
+
+void
+ft_putaddr (
+	void *addr)
+{
+	size_t	address;
+	size_t	div;
+
+	div = 16;
+	address = (size_t)addr;
+	write(1, "0x", 2);
+	while (address / div > 15)
+		div *= 16;
+	while (div > 0)
+	{
+		write(1, &HEXA_LOWER[address / div], 1);
+		address %= div;
+		div /= 16;
+	}
+	write(1, "\n", 1);
+}
+
+PRIVATE
+void
+_ft_putchar (
+	const char c )
+{
+	write(1, &c, 1);
+}
+
+void
+ft_putnbr (
+	int64_t n)
+{
+	uint64_t	nb;
+
+	if (n < 0)
+		nb = -n;
+	else
+		nb = n;
+	if (n < 0)
+		write(1, "-", 1);
+	if (nb > 9)
+		ft_putnbr(nb / 10);
+	_ft_putchar(nb % 10 + 48);
+}
+
+void
+print_mem_block (
+	mem_block * block )
+{
+	ft_putstr("block->ptr: ", 1);
+	ft_putaddr(block->ptr);
+	ft_putstr("\nblock->zone_type : ", 1);
+	ft_putnbr(block->zone_type);
+	for (int i = 0; i < SLOT_BY_BLOCK; i++) {
+		ft_putstr("\nblock->slot[", 1);
+		ft_putnbr(i);
+		ft_putstr("]: \n", 1);
+		ft_putnbr(block->slots[i]);
+	}
+}
+
+void
+print_full_zone (
+	const int zone )
+{
+	mem_block	*block;
+	int			i;
+
+	block = memory[zone][MEM_BEGIN];
+	i = 0;
+	LOG("print")
+	while (block)
+	{
+		ft_putstr("\nblock[", 1);
+		ft_putnbr(i);
+		ft_putstr("]: \n", 1);
+		print_mem_block(block);
+		block = block->next;
+		i++;
+	}
+	ft_putnbr(i);
 }
