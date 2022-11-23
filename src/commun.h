@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/22 18:35:21 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:28:30 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ extern mem_block * memory[3][2];
 
 # ifdef DEBUG
 #   define LOG_ERROR(x) ft_putstr(x, 2);
-#   define LOG(x) ft_putstr(x, 1);
-#   define PUTADDR(x) ft_putaddr(x);
-#   define PUTNBR(x) ft_putnbr(x);
+#   define LOG(x)       ft_putstr(x, 1);
+#   define PUTADDR(x)   ft_putaddr(x);
+#   define PUTNBR(x)    ft_putnbr(x);
 # else
 #   define LOG_ERROR(x)
 #   define LOG(x)
@@ -42,7 +42,7 @@ extern mem_block * memory[3][2];
         if (pthread_mutex_##x (&malloc_lock) != 0) {                \
             LOG_ERROR("error: THREAD_SAFETY_PRIORITY failed\n");    \
             return NULL;                                            \
-        }
+        }                                                           \
 
 # ifdef __SIZEOF_INT128__
     typedef __int128_t	t_wide_int;

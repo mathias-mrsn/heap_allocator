@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/22 18:36:36 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/23 17:00:06 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,16 +155,23 @@ void
 print_mem_block (
 	mem_block * block )
 {
-	ft_putstr("block->ptr: ", 1);
-	ft_putaddr(block->ptr);
-	ft_putstr("\nblock->zone_type : ", 1);
-	ft_putnbr(block->zone_type);
-	for (int i = 0; i < SLOT_BY_BLOCK; i++) {
-		ft_putstr("\nblock->slot[", 1);
-		ft_putnbr(i);
-		ft_putstr("]: \n", 1);
-		ft_putnbr(block->slots[i]);
+	LOG("ZONE TYPE : ");
+	switch (block->zone_type) {
+		case 0:
+			LOG("TINY");break;
+		case 1:
+			LOG("MEDIUM");break;
+		default:
+			LOG("LARGE");break;
 	}
+	LOG("\n")
+	for (int i = 0; i < SLOT_BY_BLOCK; i++) {
+		PUTNBR(block->slots[i])
+		if (i != SLOT_BY_BLOCK - 1) {
+			LOG(" | ")
+		}
+	}
+	LOG("\n")
 }
 
 void
@@ -176,7 +183,6 @@ print_full_zone (
 
 	block = memory[zone][MEM_BEGIN];
 	i = 0;
-	LOG("print")
 	while (block)
 	{
 		ft_putstr("\nblock[", 1);

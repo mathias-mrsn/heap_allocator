@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/22 19:40:35 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/23 16:28:21 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,17 +89,19 @@ enum zone_size {
 # define BLOCK_SIZE sizeof(mem_block)
 # define IS_LARGE(x) (x > MEDIUM_ZONE)
 
+# define IS_FULL(x) (x->slots[SLOT_BY_BLOCK - 1] != 0)
+
 int
-add_block_back (mem_block *);
+push_back (mem_block *);
 
 mem_block *
 create_block(const size_t);
 
-int*
+int
 compute_free_space (mem_block *, const size_t);
 
 void *
-reserve (mem_block *, const uint8_t, const size_t);
+reserve (mem_block *, const int, const size_t);
 
 
 /*

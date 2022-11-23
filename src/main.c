@@ -1,13 +1,29 @@
 #include "malloc.h"
+#include <unistd.h>
+#include <math.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define NB_TEST 2
+#define NB_MAX 16000
 
 int
 main () {
-    char *str = malloc(100);
-    char *str1 = malloc(100);
+    // char *str = malloc(100);
+
+    // char *str1 = malloc(100);
     // char *str2 = malloc(1000);
     // char *str3 = malloc(1000);
     // char *str4 = malloc(1000);
     // char *str5 = malloc(1000);
+    srand(time(NULL));
+    void * ptr;
+    for (int i = 0; i < NB_TEST; i++) {
+        ptr = malloc(rand() % NB_MAX);
+        if (!ptr)
+            break;
+    }
+
     return 0;
 }
 
