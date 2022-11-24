@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/23 16:28:21 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:19:26 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 /**
  * @brief The number of mallocs that can be stored in a block.
  */
-#define SLOT_BY_BLOCK 32
+// #define  100
 
 /**
  * @brief The minimum size for allocate memory in block.
@@ -33,33 +33,49 @@
  * @example If I request 2 bytes and the MSR is 32, the block will allocate 32 bytes. 
  */
 #define MINIMUM_SIZE_REQUIRED 16
-#define MIN_SIZE(x) (x < MINIMUM_SIZE_REQUIRED ? MINIMUM_SIZE_REQUIRED : x)
 
-/**
- * @brief Structure used to store a memory block.
- * 
- * @param ptr pointer to the first address of the memory block
- * @param zone_type type of zone (TINY, SMALL, LARGE)
- * @union {
- *      @param slots array used to store every pointer address
- *      @param size_allocated size allocated only if the zone_type is LARGE
- * }
- * @param next pointer to the next block
- * @param prev pointer to the previous block
- * 
- * @struct total size -> 89
- */
-typedef struct  s_mem_block
+//**
+//  * @brief Structure used to store every slot location
+//  * 
+//  * @param ptr pointer to the address of the slot
+//  * @param is_free 1 if the slot is free, 0 otherwise
+//  * @param prev pointer to the previous slot
+//  * 
+//  * @struct total size -> 17 bytes
+//  */
+typedef struct  s_slot {
+    bool    state; // FREE, USED, END_OF_BLOCK
+    struct s_slot * prev;
+} PACKED        slot;
+#define SIZEOF_SLOT sizeof(slot)
+
+//**
+//  * @brief Structure used to store a memory block.
+//  * 
+//  * @param ptr pointer to the first address of the memory block
+//  * @param zone_type type of zone (TINY, SMALL, LARGE)
+//  * @union {
+//  *      @param last pointer to the last slot of the block
+//  *      @param size_allocated size allocated only if the zone_type is LARGE
+//  * }
+//  * @param next pointer to the next block
+//  * @param prev pointer to the previous block
+//  * 
+//  * @struct total size -> 89
+// */
+typedef struct  s_bucket
 {
     void    *ptr;
-    uint8_t zone_type;
+    uint8_t zone_type : 2;
     union {
-        int16_t     slots[SLOT_BY_BLOCK];
-        uint32_t    size_allocated;
+        t_slot *    last;
+        size_t      size_allocated;
     };
     struct s_mem_block * next;
     struct s_mem_block * prev;
-} PACKED        mem_block;
+} PACKED        bucket;
+#define SIZEOF_BUCKET sizeof(slot)
+#define END_OF_BUCKET() (bucket->ptr + ZONE_TYPE_2_SIZE(bucket->zone_type) - SIZEOF_SLOT)
 
 /**
  * @brief Enum used to simplify the memory array reading.
@@ -67,7 +83,7 @@ typedef struct  s_mem_block
 enum mem_access {
     MEM_BEGIN,
     MEM_END
-};
+};  
 
 /**
  * @brief Enum used to simplify the zone type reading.
@@ -86,7 +102,6 @@ enum zone_size {
 # define ZONE_SIZE_MATCHING(x) (x <= TINY_ZONE ? TINY_ZONE : (x <= MEDIUM_ZONE ? MEDIUM_ZONE : x))
 # define ZONE_TYPE_MATCHING(x) (x <= TINY_ZONE ? TINY : (x <= MEDIUM_ZONE ? MEDIUM : LARGE))
 # define ZONE_TYPE_2_SIZE(x) (x == TINY ? TINY_ZONE : (x == MEDIUM ? MEDIUM_ZONE : 0))
-# define BLOCK_SIZE sizeof(mem_block)
 # define IS_LARGE(x) (x > MEDIUM_ZONE)
 
 # define IS_FULL(x) (x->slots[SLOT_BY_BLOCK - 1] != 0)
@@ -108,4 +123,11 @@ reserve (mem_block *, const int, const size_t);
  [ ] Remove block from the list
  [ ] Find block with ...
  [ ] Create fonction to remove old negative slot
+*/
+
+/*
+
+PTR|SLOT->next = 0x20 = end of slot / SLOT at 0x20 with next = 0,70                                  SLOT_END -> prev = end_of bucket
+[........................................................................................................]
+
 */

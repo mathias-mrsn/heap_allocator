@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/23 17:30:35 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:06:49 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ reserve (
     if (block->slots[slot_free] == 0) {
         block->slots[slot_free] = size_required + block->slots[slot_free - 1];
         ptr = block->ptr + block->slots[slot_free - 1];
-    }  else {
+    } else {
         if (size_free == size_required) {
             block->slots[slot_free] *= -1;
         } else {
@@ -114,6 +114,8 @@ compute_free_space (
             size_free = (block->slots[i] * -1) - ((i != 0) ? block->slots[i - 1] : 0);
         } else if (block->slots[i] == 0) {
             size_free = ZONE_TYPE_2_SIZE(block->zone_type) - block->slots[i - 1];
+            if (size_free < size_required)
+                return (SYSCALL_ERR);
         }
         if (size_free >= size_required) {
             return ((i << 16) + size_free);

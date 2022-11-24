@@ -4,7 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define NB_TEST 2
+#define NB_TEST 100
 #define NB_MAX 16000
 
 int
@@ -20,8 +20,10 @@ main () {
     void * ptr;
     for (int i = 0; i < NB_TEST; i++) {
         ptr = malloc(rand() % NB_MAX);
-        if (!ptr)
+        if (!ptr) {
+            write(1, "error\n", 6);
             break;
+        }
     }
 
     return 0;
