@@ -6,19 +6,19 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/23 16:28:30 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/25 15:29:59 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "pthread.h"
+
 #include "stdint.h"
 #include "stddef.h"
 #include "mem_block.h"
 
-extern pthread_mutex_t malloc_lock;
-extern mem_block * memory[3][2];
+
+// extern mem_block * memory[3][2];
 
 /*
     [TINY][BEGIN]->[...]->[TINY][END]
@@ -38,11 +38,6 @@ extern mem_block * memory[3][2];
 #   define PUTNBR(x)
 # endif
 
-#define THREAD_SAFETY_PRIORITY(x)                                   \
-        if (pthread_mutex_##x (&malloc_lock) != 0) {                \
-            LOG_ERROR("error: THREAD_SAFETY_PRIORITY failed\n");    \
-            return NULL;                                            \
-        }                                                           \
 
 # ifdef __SIZEOF_INT128__
     typedef __int128_t	t_wide_int;
@@ -75,8 +70,8 @@ ft_putaddr (void *);
 void
 ft_putnbr (int64_t);
 
-void
-print_mem_block (mem_block *);
+// void
+// print_mem_block (mem_block *);
 
-void
-print_full_zone (const int zone );
+// void
+// print_full_zone (const int zone );

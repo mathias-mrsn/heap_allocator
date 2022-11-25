@@ -62,4 +62,4 @@ show:
 
 re:			fclean all
 
-.PHONY:		all fclean clean all
+.PHONY:		all fclean clean init show re
