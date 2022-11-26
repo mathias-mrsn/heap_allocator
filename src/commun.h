@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/25 15:29:59 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/26 15:59:04 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 
 #include "stdint.h"
 #include "stddef.h"
-#include "mem_block.h"
 
 
-// extern mem_block * memory[3][2];
+// **
+//  * @brief Defines to simplify the use of the attributes. 
+//  * 
+//  */
+#define UNUSED __attribute__((unused))
+#define PACKED __attribute__((packed))
+#define CONSTRUCTOR __attribute__((constructor))
+#define DESTRUCTOR __attribute__((destructor))
 
 /*
     [TINY][BEGIN]->[...]->[TINY][END]
@@ -69,9 +75,3 @@ ft_putaddr (void *);
 
 void
 ft_putnbr (int64_t);
-
-// void
-// print_mem_block (mem_block *);
-
-// void
-// print_full_zone (const int zone );

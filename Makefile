@@ -1,10 +1,10 @@
 NAME	:=	malloc
 
 SRCS	=	commun.c \
-			leaks.c \
 			malloc.c \
-			mem_block.c \
-			main.c
+			bucket.c \
+			main.c \
+			slot.c
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang
@@ -30,11 +30,11 @@ all:		${NAME}
 $(OBJDIR)/%.o: ${SRCDIR}/%.c
 			@mkdir -p ${OBJDIR}
 			@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"
-			${CC} ${FLAGS} ${INCS} -c $< -o $@ ${DEBUG}
+			@${CC} ${FLAGS} ${INCS} -c $< -o $@ ${DEBUG}
 
 ${NAME}:	init ${OBJS}		
 			@printf "%-15s ${_PURPLE}${_BOLD}${NAME}${_END}...\n" "Compiling"
-			${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} ${DEBUG}
+			@${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} ${DEBUG}
 			@printf "\n${_GREEN}${_BOLD}Compilation done !${_END}\n"
 
 clean:		
@@ -60,6 +60,12 @@ show:
 			@printf "${_GREEN}%-15s${_YELLOW}${CC}${_END}\n" "CC"
 			@printf "${_GREEN}%-15s${_YELLOW}${FLAGS}${_END}\n" "CFLAGS ="
 
+run:		all
+			@printf "${_GREEN}${_BOLD}Running ${NAME}...${_END}\n"
+			@./${NAME}
+
 re:			fclean all
 
 .PHONY:		all fclean clean init show re
+
+# TODO: NDEBUG to remove all assert

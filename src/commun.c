@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/25 09:47:28 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/26 12:49:10 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,46 +151,3 @@ ft_putnbr (
 	_ft_putchar(nb % 10 + 48);
 }
 
-// void
-// print_mem_block (
-// 	mem_block * block )
-// {
-// 	LOG("ZONE TYPE : ");
-// 	switch (block->zone_type) {
-// 		case 0:
-// 			LOG("TINY");break;
-// 		case 1:
-// 			LOG("MEDIUM");break;
-// 		default:
-// 			LOG("LARGE");break;
-// 	}
-// 	LOG("\n")
-// 	for (int i = 0; i < SLOT_BY_BLOCK; i++) {
-// 		PUTNBR(block->slots[i])
-// 		if (i != SLOT_BY_BLOCK - 1) {
-// 			LOG(" | ")
-// 		}
-// 	}
-// 	LOG("\n")
-// }
-
-// void
-// print_full_zone (
-// 	const int zone )
-// {
-// 	mem_block	*block;
-// 	int			i;
-
-// 	block = memory[zone][MEM_BEGIN];
-// 	i = 0;
-// 	while (block)
-// 	{
-// 		ft_putstr("\nblock[", 1);
-// 		ft_putnbr(i);
-// 		ft_putstr("]: \n", 1);
-// 		print_mem_block(block);
-// 		block = block->next;
-// 		i++;
-// 	}
-// 	ft_putnbr(i);
-// }
