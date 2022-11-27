@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/26 16:48:27 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/27 20:09:52 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,30 @@ free_space_left (
 
     // for (; slot != NULL && slot->next != NULL; slot = slot->next);
 
-    printf("%zu\n\n", ((size_type)slot + SIZEOF_SLOT) - (size_type)bucket->ptr);
+    // printf("%zu\n\n", (size_type)slot);
+    // printf("%zu\n\n", (size_type)size_total);
+    // printf("%zu\n\n", (size_type)bucket);
+    // printf("%zu\n\n", (size_type)bucket->ptr);
+    // printf("%zu\n\n", (size_type)slot + SIZEOF_SLOT);
+    // printf("%zu\n\n", (size_type)slot + SIZEOF_SLOT - (size_type)bucket->ptr);
+    // printf("%zu\n\n", size_total - (((size_type)slot + SIZEOF_SLOT) - (size_type)bucket->ptr));
 
+
+    // 27200 - 
+    
     return (size_total - (((size_type)slot + SIZEOF_SLOT) - (size_type)bucket->ptr));
+    return (1);
 }
+
+slot *
+search_free_slot (
+    bucket *bucket,
+    const size_type size )
+{
+    
+}
+
+
 
 /*
 // !\ BEWARE /!\\     
