@@ -3,6 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include <stdlib.h>
+#include <commun.h>
 
 #define NB_TEST 100
 #define NB_MAX 16000
@@ -20,10 +21,28 @@ main () {
     // char *str = malloc(100);
 
     char *str1 = malloc(100);
-    // char *str2 = malloc(1000);
-    // char *str3 = malloc(1000);
-    // char *str4 = malloc(1000);
-    // char *str5 = malloc(1000);
+    char *str2 = malloc(1000);
+    char *str3 = malloc(1000);
+    char *str4 = malloc(1000);
+    char *str5 = malloc(1000);
+
+    free(str3);
+    // free(str2 + 2);
+    // char *str6 = malloc(400);
+    char *str7 = malloc(400);
+
+    PUTADDR(str1);
+    PUTSTR("\n");
+    PUTADDR(str2);
+    PUTSTR("\n");
+    PUTADDR(str3);
+    PUTSTR("\n");
+    PUTADDR(str4);
+    PUTSTR("\n");
+    PUTADDR(str5);
+    PUTSTR("\n");
+    // PUTADDR(str6);
+
     // srand(time(NULL));
     // void * ptr;
     // for (int i = 0; i < NB_TEST; i++) {

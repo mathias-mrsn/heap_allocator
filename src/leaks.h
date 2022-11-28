@@ -6,13 +6,13 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:09:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/23 16:39:13 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:59:55 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "mem_block.h"
+#include "bucket.h"
 #include "commun.h"
 
 void

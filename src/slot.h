@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/27 20:09:45 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:28:19 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 struct s_bucket;
 typedef struct s_bucket bucket;
+typedef size_t size_type;
 
 /**
  * @brief Structure used to store every slot location
@@ -65,3 +66,26 @@ insert_slot (
     bucket* b,
     slot*   s,
     const size_t  size);
+
+/**
+ * @brief Return the size of the slot
+ * 
+ * @param s Current slot to compute
+ * @return size_type Size of the slot
+ */
+size_type
+compute_slot_size (
+    const slot * s );
+
+/**
+ * @brief Free a slot that contains the ptr
+ * 
+ * @param b Bucket to which the slot belongs
+ * @param ptr Pointer to search
+ * 
+ * @return 0 if the slot has been freed, 1 if the ptr isn't the begin of the slot or -1 if the ptr hasn't been found.
+ */
+int
+free_slot (
+    bucket * b,
+    const void * ptr );

@@ -5,7 +5,11 @@ SRCS	=	commun.c \
 			bucket.c \
 			main.c \
 			slot.c \
-			print_memory.c
+			print_memory.c \
+			leaks.c \
+			free.c \
+			show_alloc_mem.c \
+			calloc.c
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang

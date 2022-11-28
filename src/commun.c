@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/26 12:49:10 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/28 13:15:43 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ _int_to_wide_c (
 	return (new_c);
 }
 
-void	
-*ft_memset (
+void *	
+ft_memset (
 	void *b,
 	int c,
 	size_t len )
@@ -97,8 +97,8 @@ _ft_strlen (
 
 void
 ft_putstr (
-	const char *s,
-	const int fd )
+	const char *    s,
+	const int       fd )
 {
 	if (!s)
 		return ;
@@ -107,7 +107,7 @@ ft_putstr (
 
 void
 ft_putaddr (
-	void *addr)
+	void * addr)
 {
 	size_t	address;
 	size_t	div;
@@ -123,7 +123,6 @@ ft_putaddr (
 		address %= div;
 		div /= 16;
 	}
-	write(1, "\n", 1);
 }
 
 PRIVATE

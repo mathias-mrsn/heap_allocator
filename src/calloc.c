@@ -1,26 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc_family.h                                    :+:      :+:    :+:   */
+/*   calloc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/18 15:38:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 17:22:03 by mamaurai         ###   ########.fr       */
+/*   Created: 2022/11/28 18:26:55 by mamaurai          #+#    #+#             */
+/*   Updated: 2022/11/28 18:28:52 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-
-#include <stddef.h>
+#include "commun.h"
+#include "malloc_family.h"
 
 void *
-malloc (
-    size_t );
+calloc (
+    size_t n,
+    size_t s )
+{
+    size_t bytes;
+    void * ptr;
 
-void
-free (
-    void * );
+    if (n == 0 || s == 0)
+        return (NULL);
+        
+    bytes = n * s;
+    if (bytes / s != n)
+        return (NULL);
 
-void
-show_alloc_mem ( void );
+    ptr = malloc(bytes);
+    if (ptr == NULL)
+        return (NULL);
+
+    return (ptr);
+}
