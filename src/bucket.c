@@ -6,20 +6,16 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:19:21 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:13:13 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bucket.h"
 #include "commun.h"
+#include "slot.h"
+
 #include <sys/mman.h>
 #include <assert.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include "slot.h"
 
 bucket *        memory[3] = {0};
 
@@ -61,6 +57,7 @@ push_back (
     }
 }
 
+INLINE
 size_type
 free_space_left (
     const bucket *bucket )
@@ -84,31 +81,6 @@ search_free_slot (
     return (NULL);
 }
 
-void *
-search_space (
-    const size_type size )
-{
-    const zone_type zone = TYPE_MATCHING(size);
-    void *        ret;
-
-    for (bucket *bucket = memory[zone]; bucket != NULL; bucket = bucket->next) {
-#if (REALLOC_OLD_SLOT == 1)
-        slot *slot;
-        if ((slot = search_free_slot(bucket, size)) != NULL) {
-            MALLOC_DEBUG("malloc: slot added in a old slot")
-            ret = insert_slot(bucket, slot, size);
-            return (ret);
-        }
-#endif
-        if (free_space_left(bucket) >= size) {
-            MALLOC_DEBUG("malloc: slot added at the end of the bucket")
-            ret = new_slot(bucket, size);
-            return (ret);
-        }
-    }
-    return (NULL);
-}
-
 bucket *
 find (
     const void *ptr )
@@ -122,11 +94,6 @@ find (
     }
     return (NULL);
 }
-
-/* HELPER */
-
-
-
 
 /*
 // !\ BEWARE /!\\     

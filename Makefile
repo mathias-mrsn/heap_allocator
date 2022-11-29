@@ -1,15 +1,13 @@
 NAME	:=	malloc
 
 SRCS	=	commun.c \
-			malloc.c \
+			malloc_internal.c \
 			bucket.c \
 			main.c \
 			slot.c \
-			print_memory.c \
 			leaks.c \
-			free.c \
-			show_alloc_mem.c \
-			calloc.c
+			free_internal.c \
+			show_alloc_mem_internal.c
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang

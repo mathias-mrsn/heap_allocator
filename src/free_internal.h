@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_memory.h                                     :+:      :+:    :+:   */
+/*   free_internal.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/27 19:34:00 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/27 19:42:18 by mamaurai         ###   ########.fr       */
+/*   Created: 2022/11/29 18:26:28 by mamaurai          #+#    #+#             */
+/*   Updated: 2022/11/29 18:35:24 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include <unistd.h>
-
-int ft_print_memory(void *addr, unsigned int size);
-
-//! TODO Remove this function from the project
+/**
+ * @brief Free the memory allocated on the heap
+ * 
+ * @param ptr Pointer to free
+ */
+void
+free_internal (
+    void * ptr );

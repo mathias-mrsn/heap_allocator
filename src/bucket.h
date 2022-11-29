@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:17:48 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:07:24 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,6 @@ search_free_slot (
     const size_type size );
 
 /**
- * @brief Search a free space into the memory bucket.
- * 
- * @param size_type size of the memory asked
- * @return void* A pointer to the new slot if anough space has been found, NULL otherwise.
- */
-void *
-search_space (
-    const size_type );
-
-/**
  * @brief Search a bucket by its pointer.
  * 
  * @param ptr Pointer to search
@@ -108,9 +98,6 @@ search_space (
 bucket *
 find (
     const void *ptr );
-
-
-//! #define END_OF_BUCKET() (bucket->ptr + ZONE_TYPE_2_SIZE(bucket->zone_type) - SIZEOF_SLOT)
 
 /**
  * @brief Minimun of slot a zone must have.
@@ -149,7 +136,7 @@ enum type {
 #define GET_SIZE(type, size) (type == TINY ? TINY_ZONE : (type == SMALL ? SMALL_ZONE : size))
 #define GET_TYPE(type, size) (type == TINY ? TINY_SIZE : (type == SMALL ? SMALL_SIZE : size))
 #define GET_TYPE_BELOW(type) (type == TINY ? 0 : (type == SMALL ? TINY_SIZE : SMALL_SIZE))
-#define TYPE_MATCHING(size) (size <= TINY_SIZE ? TINY : (size <= SMALL_SIZE ? SMALL : LARGE))
+#define TYPE_MATCHING(size)  (size <= TINY_SIZE ? TINY : (size <= SMALL_SIZE ? SMALL : LARGE))
 
 extern bucket * memory[3];
 

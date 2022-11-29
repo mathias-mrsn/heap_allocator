@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   show_alloc_mem.c                                   :+:      :+:    :+:   */
+/*   show_alloc_mem_internal.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:21:01 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:19:43 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:37:07 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
 #include "bucket.h"
 #include "slot.h"
+#include "thread_safety.h"
 
+PRIVATE
 void
-print_bucket (
+_print_bucket (
     const bucket *bucket )
 {
     switch(bucket->zone) {
@@ -50,11 +52,15 @@ print_bucket (
 }
 
 void
-show_alloc_mem (void)
+show_alloc_mem_internal (void)
 {
+    THREAD_SAFETY(lock);
+    
     for (int i = 0; i < 3; i++) {
         for (bucket *bucket = memory[i]; bucket != NULL; bucket = bucket->next) {
-            print_bucket(bucket);
+            _print_bucket(bucket);
         }
     }
+
+    THREAD_SAFETY(unlock);
 }

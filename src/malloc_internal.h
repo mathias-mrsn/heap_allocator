@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc.c                                           :+:      :+:    :+:   */
+/*   malloc_internal.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 18:26:55 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:28:52 by mamaurai         ###   ########.fr       */
+/*   Created: 2022/11/29 17:55:34 by mamaurai          #+#    #+#             */
+/*   Updated: 2022/11/29 18:07:03 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "commun.h"
-#include "malloc_family.h"
+#pragma once
 
+#include "stddef.h"
+
+/**
+ * @brief Allocate N bytes of memory.
+ * 
+ * @param size The number of bytes to allocate.
+ * @return void* Pointer to the slot of memory.
+ */
 void *
-calloc (
-    size_t n,
-    size_t s )
-{
-    size_t bytes;
-    void * ptr;
-
-    if (n == 0 || s == 0)
-        return (NULL);
-        
-    bytes = n * s;
-    if (bytes / s != n)
-        return (NULL);
-
-    ptr = malloc(bytes);
-    if (ptr == NULL)
-        return (NULL);
-
-    return (ptr);
-}
+malloc_internal (
+    size_t size );

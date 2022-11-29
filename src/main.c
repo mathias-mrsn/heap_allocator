@@ -1,4 +1,4 @@
-#include "malloc_family.h"
+#include "../inc/libmalloc.h"
 #include <unistd.h>
 #include <math.h>
 #include <time.h>

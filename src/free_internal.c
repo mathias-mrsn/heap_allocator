@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:39:05 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:22:56 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:26:01 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 #include "thread_safety.h"
 #include <assert.h>
 
-PRIVATE
 INLINE
 void
-_free_internal (
+free_internal (
     void * ptr )
 {
+    THREAD_SAFETY(lock);
+    
     bucket * b = find(ptr);
     if (b == NULL) {
         ERROR("free(): invalid pointer");
@@ -40,14 +41,7 @@ _free_internal (
             break;
         default:
             break;
-    }   
-}
+    }
 
-void
-free (
-    void * ptr )
-{
-    THREAD_SAFETY(lock);
-    _free_internal(ptr);
     THREAD_SAFETY(unlock);
 }
