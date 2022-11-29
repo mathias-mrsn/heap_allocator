@@ -4,6 +4,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <commun.h>
+#include "slot.h"
 
 #define NB_TEST 100
 #define NB_MAX 16000
@@ -20,6 +21,10 @@ main () {
 // # endif
     // char *str = malloc(100);
 
+    PUTNBR(sizeof(struct s_slot));
+    PUTSTR("\n");
+
+
     char *str1 = malloc(100);
     char *str2 = malloc(1000);
     char *str3 = malloc(1000);
@@ -29,6 +34,9 @@ main () {
     free(str3);
     // free(str2 + 2);
     // char *str6 = malloc(400);
+
+    free_heap();
+
     char *str7 = malloc(400);
 
     PUTADDR(str1);

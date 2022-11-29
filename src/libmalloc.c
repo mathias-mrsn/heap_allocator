@@ -6,13 +6,14 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 18:35:52 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:44:17 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc_internal.h"
 #include "free_internal.h"
 #include "commun.h"
+#include "leaks.h"
 
 void *
 calloc (
@@ -56,6 +57,15 @@ free (
 void
 show_alloc_mem (void)
 {
-    show_alloc_mem (void)
+    show_alloc_mem();
+}
+
+void
+free_heap (void)
+{
+#if (LEAK_SAFETY == 1)
+    WARNING("free_heap() : LEAK_SAFETY is on, the program will be freed at the end\n")
+#endif
+    leak_safety();
 }
 

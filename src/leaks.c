@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:10:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 18:38:04 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:36:00 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,16 @@ _clear_zone (
         del = current;
         current = current->next;
         size = GET_SIZE(zone_type, del->size_allocated) + SIZEOF_BUCKET;
-        if (munmap(del, size))
+        if (munmap(del, size)) {
             MALLOC_DEBUG("malloc: munmap() failed\n")
+            return;
+        }
     }
 }
 
+# if (LEAK_SAFERY == true)
 DESTRUCTOR
+#endif
 void
 leak_safety (void)
 {

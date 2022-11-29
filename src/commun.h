@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:21:32 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:37:27 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 #   define REALLOC_OLD_SLOT 1
 #endif
 
-# ifdef DEBUG
+# if (DEBUG == 1)
 // #   define LOG_ERROR(x) ft_putstr(x, 2);
 #   define MALLOC_DEBUG(x) ft_putstr(x"\n", 1);
 #   define PUTSTR(x)    ft_putstr(x, 1);
@@ -51,19 +51,23 @@
 #   define PUTNBR(x)
 # endif
 
-#define WARNING(x)  \
-    ft_putstr(BPURPLE, 2); \
-    ft_putstr("Warning: ", 2); \
-    ft_putstr(WHITE, 2); \
-    ft_putstr(x, 2); \
-    ft_putstr(RESET, 2); \
+#if (ABORT_IF_ERROR == true)
+#   define WARNING(x)  \
+        ft_putstr(BPURPLE, 2); \
+        ft_putstr("Warning: ", 2); \
+        ft_putstr(WHITE, 2); \
+        ft_putstr(x, 2); \
+        ft_putstr(RESET, 2);
+#else
+#   define WARNING(x) ERROR(x)
+#endif
 
 #define ERROR(x)  \
     ft_putstr(BRED, 2); \
     ft_putstr("Error: ", 2); \
     ft_putstr(WHITE, 2); \
     ft_putstr(x, 2); \
-    ft_putstr(RESET, 2); \
+    ft_putstr(RESET, 2);
 
 
 # ifdef __SIZEOF_INT128__

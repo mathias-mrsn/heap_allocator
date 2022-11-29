@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 17:28:19 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:20:05 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef size_t size_type;
  * @struct total size -> 9 bytes
  */
 typedef struct  s_slot {
-    bool    state; // FREE, USED // ? END_OF_BLOCK
+    char    state; // FREE, USED, FREED
     struct s_slot * next;
 } PACKED        slot;
 #define SIZEOF_SLOT sizeof(struct s_slot)
