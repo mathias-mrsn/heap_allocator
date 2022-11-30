@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:10:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 14:33:03 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 16:07:22 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void
 _clear_zone (
     int zone_type )
 {
-    bucket * current = memory[zone_type];
-    size_type size = 0;
-    bucket * del = NULL;
+    bucket *    current = memory[zone_type];
+    size_type   size = 0;
+    bucket *    del = NULL;
 
     while (current) {
         del = current;

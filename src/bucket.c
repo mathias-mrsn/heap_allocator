@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:00:45 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:29:29 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ new_bucket (
     const size_t    size_to_allocated = GET_SIZE(zone, size) + SIZEOF_BUCKET;
     bucket *bucket = mmap(NULL, size_to_allocated, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 
-    assert(bucket != MAP_FAILED);
     if (bucket == MAP_FAILED) {
         MALLOC_DEBUG("malloc: mmap() failed");
         return (NULL);

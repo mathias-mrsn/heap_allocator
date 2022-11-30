@@ -21,8 +21,6 @@ DEBUG	=	1
 
 LEAK_SAFETY = 1
 
-ABORT_IF_ERROR = 1
-
 _GREY=	$'\033[30m
 _RED=	$'\033[31m
 _GREEN=	$'\033[32m
@@ -38,11 +36,11 @@ all:		${NAME}
 $(OBJDIR)/%.o: ${SRCDIR}/%.c
 			@mkdir -p ${OBJDIR}
 			@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"
-			@${CC} ${FLAGS} ${INCS} -c $< -o $@ -D DEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -DABORT_IF_ERROR=${ABORT_IF_ERROR}
+			@${CC} ${FLAGS} ${INCS} -c $< -o $@ -D DEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY}
 
 ${NAME}:	init ${OBJS}		
 			@printf "%-15s ${_PURPLE}${_BOLD}${NAME}${_END}...\n" "Compiling"
-			@${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} -DDEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -DABORT_IF_ERROR=${ABORT_IF_ERROR}
+			@${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} -DDEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY}
 			@printf "\n${_GREEN}${_BOLD}Compilation done !${_END}\n"
 
 clean:		
