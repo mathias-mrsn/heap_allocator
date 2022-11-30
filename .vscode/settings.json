@@ -5,7 +5,8 @@
         "mman.h": "c",
         "slot.h": "c",
         "stdint.h": "c",
-        "libmalloc.h": "c"
+        "libmalloc.h": "c",
+        "cstdlib": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "editor.tokenColorCustomizations": {

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 20:37:27 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:18:31 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 #   define PUTNBR(x)
 # endif
 
-#if (ABORT_IF_ERROR == true)
+#if (ABORT_IF_ERROR == 1)
 #   define WARNING(x)  \
         ft_putstr(BPURPLE, 2); \
         ft_putstr("Warning: ", 2); \
@@ -59,7 +59,7 @@
         ft_putstr(x, 2); \
         ft_putstr(RESET, 2);
 #else
-#   define WARNING(x) ERROR(x)
+#   define WARNING(x) ERROR(x);
 #endif
 
 #define ERROR(x)  \

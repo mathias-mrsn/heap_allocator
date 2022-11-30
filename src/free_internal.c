@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_internal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:39:05 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 18:26:01 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:16:53 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "slot.h"
 #include "thread_safety.h"
 #include <assert.h>
+#include "free_internal.h"
 
 INLINE
 void
@@ -26,22 +27,27 @@ free_internal (
     bucket * b = find(ptr);
     if (b == NULL) {
         ERROR("free(): invalid pointer");
-        assert(0);
         THREAD_SAFETY(unlock);
         return ;
     }
     const int ret = free_slot(b, ptr);
     switch (ret) {
-        case -1:
-            ERROR("free(): invalid pointer");
-            assert(0);
+        case INVALID_POINTER:
+            WARNING("free(): invalid pointer");
             break;
-        case 1:
+        case MIDDLE_OF_SLOT:
             WARNING("free(): this pointer isn't at the begin of a slot; the entire slot has been freed");
             break;
-        default:
+        case DOUBLE_FREE:
+            WARNING("free(): double free");
+            break;
+        case FREE_UNALLOCATED:
+            WARNING("free(): free unallocated");
             break;
     }
-
     THREAD_SAFETY(unlock);
+
+#if (ABORT_IF_ERROR == 1)
+    assert(ret == 0);
+#endif
 }

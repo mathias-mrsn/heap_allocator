@@ -37,18 +37,18 @@ main () {
 
     free_heap();
 
-    char *str7 = malloc(400);
+    // char *str7 = malloc(400);
 
-    PUTADDR(str1);
-    PUTSTR("\n");
-    PUTADDR(str2);
-    PUTSTR("\n");
-    PUTADDR(str3);
-    PUTSTR("\n");
-    PUTADDR(str4);
-    PUTSTR("\n");
-    PUTADDR(str5);
-    PUTSTR("\n");
+    // PUTADDR(str1);
+    // PUTSTR("\n");
+    // PUTADDR(str2);
+    // PUTSTR("\n");
+    // PUTADDR(str3);
+    // PUTSTR("\n");
+    // PUTADDR(str4);
+    // PUTSTR("\n");
+    // PUTADDR(str5);
+    // PUTSTR("\n");
     // PUTADDR(str6);
 
     // srand(time(NULL));

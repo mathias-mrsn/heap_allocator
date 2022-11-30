@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:10:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 20:36:00 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:33:03 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "commun.h"
 #include "show_alloc_mem_internal.h"
 #include <sys/mman.h>
+#include "thread_safety.h"
 
 PRIVATE
 void
@@ -35,15 +36,23 @@ _clear_zone (
     }
 }
 
-# if (LEAK_SAFERY == true)
+# if (LEAK_SAFETY == 1)
 DESTRUCTOR
 #endif
 void
 leak_safety (void)
 {
+# if (LEAK_SAFETY == 0)
+    THREAD_SAFETY(lock);
+#endif
+    
     show_alloc_mem_internal();
     _clear_zone(TINY);
     _clear_zone(SMALL);
     _clear_zone(LARGE);
     ft_memset(&memory, 0, sizeof(bucket *) * 6);    
+
+# if (LEAK_SAFETY == 0)
+    THREAD_SAFETY(unlock);
+#endif
 }

@@ -6,16 +6,17 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:26:28 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 20:42:46 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:11:01 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 enum free_errors {
-    INVALID_POINTER = 1ULL << 1,
-    MIDDLE_OF_SLOT = 1ULL << 2,
-    DOUBLE_FREE = 1ULL << 3
+    INVALID_POINTER = 1,
+    MIDDLE_OF_SLOT = 2,
+    DOUBLE_FREE = 3,
+    FREE_UNALLOCATED = 4
 };
 
 /**

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 18:13:13 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:00:45 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ new_bucket (
     return (bucket);
 }
 
+INLINE
 void
 push_back (
     bucket *bucket )

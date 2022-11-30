@@ -6,13 +6,14 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:21 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 18:20:17 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 13:13:28 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
 #include "slot.h"
 #include "bucket.h"
+#include "free_internal.h"
 
 void *
 new_slot(
@@ -75,15 +76,22 @@ free_slot (
    slot * s = b->ptr;
 
    for (; s != NULL && s->next != NULL; s = s->next) {
-        if (s->state && (ptr >= (void *)s && ptr < (void *)s->next)) {
-            s->state = FREE;
+        if ((ptr >= (void *)s && ptr < (void *)s->next)) {
+            if (s->state == FREED) {
+                return (DOUBLE_FREE);
+            }
+            if (s->state == FREE) {
+                return (FREE_UNALLOCATED);
+            }
+            s->state = FREED;
             MALLOC_DEBUG("free: slot freed");
             if (ptr != (void *)s + SIZEOF_SLOT) {
-                return (1);
+                return (MIDDLE_OF_SLOT);
             }
+            
             return (0);
         }
     }
     MALLOC_DEBUG("free: slot not found");
-    return (-1);
+    return (INVALID_POINTER);
 }

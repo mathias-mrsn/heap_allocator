@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 20:44:17 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:29:19 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "free_internal.h"
 #include "commun.h"
 #include "leaks.h"
+#include <assert.h>
 
 void *
 calloc (
@@ -64,8 +65,13 @@ void
 free_heap (void)
 {
 #if (LEAK_SAFETY == 1)
-    WARNING("free_heap() : LEAK_SAFETY is on, the program will be freed at the end\n")
+    WARNING("free_heap() : LEAK_SAFETY is on, the program will be freed at the end automatically\n");
 #endif
+
+#if (ABORT_IF_ERROR == 1 && LEAK_SAFETY == 1)
+    assert(0);
+#endif
+
     leak_safety();
 }
 
