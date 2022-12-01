@@ -8,7 +8,9 @@ SRCS	=	commun.c \
 			leaks.c \
 			free_internal.c \
 			show_alloc_mem_internal.c \
-			libmalloc.c
+			libmalloc.c \
+			defragment_heap_internal.c \
+			realloc_internal.c
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang
@@ -18,7 +20,6 @@ OBJDIR 	=	.objs
 SRCDIR 	= 	./src
 
 DEBUG	=	1
-
 LEAK_SAFETY = 1
 
 _GREY=	$'\033[30m

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 14:18:31 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:32:40 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@
 
 #define PRIVATE static
 #define SYSCALL_ERR -1
+#define SUCCESS 0
+#define FAILURE 1
 
 /* Memory */
 

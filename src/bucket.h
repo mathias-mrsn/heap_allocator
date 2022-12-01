@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 18:07:24 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:26:11 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ new_bucket (
     size_type );
 
 /**
+ * @brief Munmap the current bucket.
+ * 
+ * @param bucket The current bucket.
+ */
+void
+destroy_bucket (
+    bucket *bucket );
+
+/**
  * @brief Push a bucket at the end of the memory list.
  * 
  * @param bucket bucket to push
@@ -100,6 +109,26 @@ find (
     const void *ptr );
 
 /**
+ * @brief Remove every free space between each slots.
+ * 
+ * @param bucket The current bucket
+ * @return int 
+ */
+int
+glue_slots (
+    const bucket * bucket);
+
+/**
+ * @brief Merge every free space between each slots.
+ * 
+ * @param bucket The current bucket
+ * @return size_t The number of free slot destroyed.
+ */
+size_t
+merge_freed_slots (
+    const bucket * bucket);
+
+/**
  * @brief Minimun of slot a zone must have.
  */
 #define MIN_SLOT    100
@@ -139,35 +168,3 @@ enum type {
 #define TYPE_MATCHING(size)  (size <= TINY_SIZE ? TINY : (size <= SMALL_SIZE ? SMALL : LARGE))
 
 extern bucket * memory[3];
-
-//// enum zone_size {
-////     TINY_ZONE = SLOT_BY_BLOCK * MINIMUM_SIZE_REQUIRED,
-////     SMALL_ZONE = SLOT_BY_BLOCK * TINY_ZONE
-//// };
-
-//// # define ZONE_SIZE_MATCHING(x) (x <= TINY_ZONE ? TINY_ZONE : (x <= SMALL_ZONE ? SMALL_ZONE : x))
-//// # define ZONE_TYPE_MATCHING(x) (x <= TINY_ZONE ? TINY : (x <= SMALL_ZONE ? SMALL : LARGE))
-//// # define ZONE_TYPE_2_SIZE(x) (x == TINY ? TINY_ZONE : (x == SMALL ? SMALL_ZONE : 0))
-//// # define IS_LARGE(x) (x > SMALL_ZONE)
-
-////# define IS_FULL(x) (x->slots[SLOT_BY_BLOCK - 1] != 0)
-
-//// int
-//// push_back (mem_block *);
-
-//// mem_block *
-//// create_block(const size_t);
-
-//// int
-//// compute_free_space (mem_block *, const size_t);
-
-//// void *
-//// reserve (mem_block *, const int, const size_t);
-
-
-/*
-
-PTR|SLOT->next = 0x20 = end of slot / SLOT at 0x20 with next = 0,70                                  SLOT_END -> prev = end_of bucket
-[.....................................................................................................B--]
-
-*/

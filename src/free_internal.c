@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:39:05 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 15:29:39 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:05:32 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,17 @@ free_internal (
     const int ret = free_slot(b, ptr);
     switch (ret) {
         case INVALID_POINTER:
-            WARNING("free(): invalid pointer");
+            WARNING("free(): invalid pointer\n");
             break;
         case MIDDLE_OF_SLOT:
-            WARNING("free(): this pointer isn't at the begin of a slot; the entire slot has been freed");
+            WARNING("free(): this pointer isn't at the begin of a slot; the entire slot has been freed\n");
             break;
         case DOUBLE_FREE:
-            WARNING("free(): double free");
+            WARNING("free(): double free\n");
             break;
         case FREE_UNALLOCATED:
-            WARNING("free(): free unallocated");
+            WARNING("free(): free unallocated\n");
             break;
     }
     THREAD_SAFETY(unlock);
-
 }

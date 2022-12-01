@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 15:29:29 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:54:00 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,20 @@ new_bucket (
         bucket->size_allocated = size;
     } else {
         bucket->last = (void *)bucket->ptr;
+        bucket->last->state = EOB;
     }
     return (bucket);
+}
+
+void
+destroy_bucket (
+    bucket *bucket )
+{
+    const size_type size = GET_SIZE(bucket->zone, bucket->size_allocated) + SIZEOF_BUCKET;
+    if (munmap(bucket, size)) {
+        MALLOC_DEBUG("malloc: munmap() failed\n")
+        return;
+    }
 }
 
 INLINE
@@ -73,8 +85,8 @@ search_free_slot (
     const bucket *  bucket,
     const size_type size )
 {
-    for (slot *slot = bucket->ptr; slot != NULL && slot->next != NULL ; slot = slot->next) {
-        if (slot->state == FREE && compute_slot_size(slot) >= size) {
+    FOREACH_SLOT (bucket, slot) {
+        if (slot->state & FREE && compute_slot_size(slot) >= size) {
             return (slot);
         }
     }
@@ -94,6 +106,48 @@ find (
     }
     return (NULL);
 }
+
+//* I have to find a smart way to degragment the bucket
+int
+glue_slots (
+    const bucket * bucket)
+{
+    return (1);
+}
+
+size_type
+merge_freed_slots (
+    const bucket * bucket)
+{
+    size_t count = 0;
+    
+    FOREACH_SLOT (bucket, slot) {
+        if ((slot->state & (FREED | FREE)) && (slot->next->state & (FREED | FREE))) {
+            if (slot->next->state & FREE) {
+                slot->state = FREE;
+            }
+            slot->next = slot->next->next;
+            count++;
+        }
+    }
+
+    return (count);
+}
+
+size_type
+compute_space_left (
+    const bucket * bucket )
+{
+    size_type space_left = 0;
+    
+    FOREACH_SLOT (bucket, slot) {
+        if (slot->state & (FREE | FREED)) {
+            space_left += compute_slot_size(slot);
+        }
+    }
+    return (space_left);
+}
+
 
 /*
 // !\ BEWARE /!\\     

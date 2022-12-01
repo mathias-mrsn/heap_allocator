@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:21 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:13:28 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:32:50 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ insert_slot (
     return ((void *)s + SIZEOF_SLOT);
 }
 
-inline
+INLINE
 size_type
 compute_slot_size (
     const slot * s )
@@ -73,23 +73,29 @@ free_slot (
     bucket * b,
     const void * ptr )
 {
-   slot * s = b->ptr;
-
-   for (; s != NULL && s->next != NULL; s = s->next) {
-        if ((ptr >= (void *)s && ptr < (void *)s->next)) {
-            if (s->state == FREED) {
-                return (DOUBLE_FREE);
+    if (b->zone == LARGE) {
+        destroy_bucket(b);
+        if (ptr != (void *)b + SIZEOF_BUCKET) {
+            return (MIDDLE_OF_SLOT);
+        }
+        return (SUCCESS);
+    } else {
+        FOREACH_SLOT(b, s) {
+            if ((ptr >= (void *)s && ptr < (void *)s->next)) {
+                if (s->state & FREED) {
+                    return (DOUBLE_FREE);
+                }
+                if (s->state & FREE) {
+                    return (FREE_UNALLOCATED);
+                }
+                s->state = FREED;
+                MALLOC_DEBUG("free: slot freed");
+                if (ptr != (void *)s + SIZEOF_SLOT) {
+                    return (MIDDLE_OF_SLOT);
+                }
+                
+                return (SUCCESS);
             }
-            if (s->state == FREE) {
-                return (FREE_UNALLOCATED);
-            }
-            s->state = FREED;
-            MALLOC_DEBUG("free: slot freed");
-            if (ptr != (void *)s + SIZEOF_SLOT) {
-                return (MIDDLE_OF_SLOT);
-            }
-            
-            return (0);
         }
     }
     MALLOC_DEBUG("free: slot not found");

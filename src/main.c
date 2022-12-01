@@ -32,6 +32,7 @@ main () {
     char *str5 = malloc(1000);
 
     free(str3);
+    free(str3);
     // free(str2 + 2);
     // char *str6 = malloc(400);
 

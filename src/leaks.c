@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:10:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 16:07:22 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:06:14 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 PRIVATE
 void
 _clear_zone (
-    int zone_type )
+    const int zone_type )
 {
     bucket *    current = memory[zone_type];
     size_type   size = 0;

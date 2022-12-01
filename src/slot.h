@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:05:42 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:02:50 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ typedef struct  s_slot {
 #define SIZEOF_SLOT sizeof(struct s_slot)
 
 enum state {
-    FREE,
-    FREED,
-    USED
+    FREE = 1 << 0,
+    FREED = 1 << 1,
+    USED = 1 << 2,
+    EOB = 1 << 3,
 };
 
 /**
@@ -90,3 +91,6 @@ int
 free_slot (
     bucket * b,
     const void * ptr );
+
+#define FOREACH_SLOT(bucket_name, slot_name) \
+    for (slot * slot_name = bucket_name->ptr; slot_name != NULL && slot_name->state != EOB ; slot_name = slot_name->next)
