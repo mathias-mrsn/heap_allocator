@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:26:28 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/30 13:11:01 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:35:50 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 enum free_errors {
     INVALID_POINTER = 1,
     MIDDLE_OF_SLOT = 2,
-    DOUBLE_FREE = 3,
-    FREE_UNALLOCATED = 4
+    DOUBLE_FREE = 3
 };
 
 /**

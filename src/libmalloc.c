@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 00:56:29 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:43:51 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "free_internal.h"
 #include "defragment_heap_internal.h"
 #include "realloc_internal.h"
+#include "show_alloc_mem_internal.h"
+
 #include "commun.h"
 #include "leaks.h"
 #include <assert.h>
@@ -59,7 +61,7 @@ free (
 void
 show_alloc_mem (void)
 {
-    show_alloc_mem();
+    show_alloc_mem_internal();
 }
 
 void

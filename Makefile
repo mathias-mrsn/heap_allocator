@@ -19,8 +19,12 @@ INCS	=	-I ./src
 OBJDIR 	=	.objs
 SRCDIR 	= 	./src
 
-DEBUG	=	1
-LEAK_SAFETY = 1
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
+
+DEBUG	=	0
+LEAK_SAFETY = 0
 
 _GREY=	$'\033[30m
 _RED=	$'\033[31m
@@ -74,5 +78,3 @@ run:		all
 re:			fclean all
 
 .PHONY:		all fclean clean init show re
-
-# TODO: NDEBUG to remove all assert

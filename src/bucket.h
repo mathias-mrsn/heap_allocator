@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 00:26:11 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:20:08 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct  s_bucket
         size_t      size_allocated;
     };
     struct s_bucket * next;
-    // struct s_bucket * prev;
+    struct s_bucket * prev;
 } PACKED        bucket;
 #define SIZEOF_BUCKET sizeof(struct s_bucket)
 
@@ -57,6 +57,15 @@ bucket *
 new_bucket (
     zone_type,
     size_type );
+
+/**
+ * @brief Unlink the bucket from the linked list
+ * 
+ * @param b Bucket to unlink
+ */
+void
+unlink_bucket (
+    bucket * b );
 
 /**
  * @brief Munmap the current bucket.
@@ -122,11 +131,10 @@ glue_slots (
  * @brief Merge every free space between each slots.
  * 
  * @param bucket The current bucket
- * @return size_t The number of free slot destroyed.
  */
-size_t
+void
 merge_freed_slots (
-    const bucket * bucket);
+    bucket * bucket);
 
 /**
  * @brief Minimun of slot a zone must have.

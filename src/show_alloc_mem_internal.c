@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:21:01 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 18:37:07 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:25:21 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ _print_bucket (
     PUTSTR("\nPTR: ");
     PUTADDR(bucket->ptr);
     PUTSTR("\n");
+    if (bucket->zone == LARGE) {
+        PUTSTR("SIZE: ");
+        PUTNBR(bucket->size_allocated);
+        PUTSTR("\n");
+        return;
+    }
     for (slot *slot = bucket->ptr; slot != NULL && slot->next; slot = slot->next) {
         PUTADDR((void*)slot + SIZEOF_SLOT);
         PUTSTR(" - ");
@@ -45,7 +51,7 @@ _print_bucket (
         if (slot->state == USED) {
             PUTSTR("USED");
         } else {
-            PUTSTR("FREE");
+            PUTSTR("FREED");
         }
         PUTSTR("\n");
     }

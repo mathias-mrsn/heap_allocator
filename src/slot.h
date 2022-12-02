@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 00:02:50 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:53:05 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ typedef struct  s_slot {
 #define SIZEOF_SLOT sizeof(struct s_slot)
 
 enum state {
-    FREE = 1 << 0,
-    FREED = 1 << 1,
-    USED = 1 << 2,
-    EOB = 1 << 3,
+    FREED = 0x1,
+    USED = 0x2,
+    EOB = 0x4,
 };
 
 /**
@@ -91,6 +90,30 @@ int
 free_slot (
     bucket * b,
     const void * ptr );
+
+/**
+ * @brief Return the slot that contains the ptr
+ * 
+ * @param b Current bucket
+ * @param ptr Pointer to find
+ * @return slot* Slot that contains the ptr
+ */
+slot *
+find_slot (
+    const bucket * b,
+    void * ptr );
+
+/**
+ * @brief Return the amount of space that can be expanded
+ * 
+ * @param b Current bucket
+ * @param s Current slot
+ * @return size_type Value computed
+ */
+size_type
+compute_expandable_size (
+    const bucket * b,
+    const slot * s );
 
 #define FOREACH_SLOT(bucket_name, slot_name) \
     for (slot * slot_name = bucket_name->ptr; slot_name != NULL && slot_name->state != EOB ; slot_name = slot_name->next)

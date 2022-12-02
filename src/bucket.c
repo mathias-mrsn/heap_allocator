@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 00:54:00 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:22:33 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,24 @@ new_bucket (
     return (bucket);
 }
 
+INLINE
+void
+unlink_bucket (
+    bucket * b )
+{
+    const zone_type zone = b->zone;
+    
+    if (memory[zone] == b) {
+        memory[zone] = b->next;
+    }
+    if (b->next) {
+        b->next->prev = b->prev;
+    }
+    if (b->prev) {
+        b->prev->next = b->next;
+    }
+}
+
 void
 destroy_bucket (
     bucket *bucket )
@@ -65,6 +83,7 @@ push_back (
         memory[zone] = bucket;
     } else {
         bucket->next = memory[zone];
+        memory[zone]->prev = bucket;
         memory[zone] = bucket;
     }
 }
@@ -86,7 +105,7 @@ search_free_slot (
     const size_type size )
 {
     FOREACH_SLOT (bucket, slot) {
-        if (slot->state & FREE && compute_slot_size(slot) >= size) {
+        if (slot->state & FREED && compute_slot_size(slot) >= size) {
             return (slot);
         }
     }
@@ -115,23 +134,22 @@ glue_slots (
     return (1);
 }
 
-size_type
+void
 merge_freed_slots (
-    const bucket * bucket)
-{
-    size_t count = 0;
-    
+    bucket * bucket)
+{    
     FOREACH_SLOT (bucket, slot) {
-        if ((slot->state & (FREED | FREE)) && (slot->next->state & (FREED | FREE))) {
-            if (slot->next->state & FREE) {
-                slot->state = FREE;
+        if ((slot->state & FREED) && (slot->next->state & (FREED | EOB))) {
+            if (slot->next->state & EOB) {
+                slot->state = EOB;
+                slot->next = NULL;
+                bucket->last = slot;
+            } else {
+                slot->next = slot->next->next;
             }
-            slot->next = slot->next->next;
-            count++;
-        }
+            slot = bucket->ptr;        
+        }        
     }
-
-    return (count);
 }
 
 size_type
@@ -141,7 +159,7 @@ compute_space_left (
     size_type space_left = 0;
     
     FOREACH_SLOT (bucket, slot) {
-        if (slot->state & (FREE | FREED)) {
+        if (slot->state & FREED) {
             space_left += compute_slot_size(slot);
         }
     }
