@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 22:21:27 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 23:54:37 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "stdint.h"
 #include "stddef.h"
 #include "color.h"
+#include "meta.h"
 
 
 // **
@@ -36,9 +37,10 @@
 
 #define WARNING(x)  \
         ft_putstr(BPURPLE, 2); \
-        ft_putstr("Warning: ", 2); \
-        ft_putstr(RESET, 2); \
+        ft_putstr("Warning: "RESET, 2); \
+        ft_putstr(BWHITE, 2); \
         ft_putstr(x, 2); \
+        ft_putstr(RESET, 2);
 
 # define PRINT_CALL_LOCATION(m) \
         PUTERR(m.file); \
@@ -94,3 +96,11 @@ ft_putaddr (void *, const int fd);
 
 void
 ft_putnbr (int64_t, const int);
+
+void
+error_printer (
+    void * ptr,
+    const char * func_name,
+    const char * message,
+    const metadata meta,
+    const metadata meta2 );

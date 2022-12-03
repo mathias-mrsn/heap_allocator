@@ -17,7 +17,8 @@
         "unordered_map": "c",
         "vector": "c",
         "realloc_internal.h": "c",
-        "free_internal.h": "c"
+        "free_internal.h": "c",
+        "stddef.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled",
     "editor.tokenColorCustomizations": {

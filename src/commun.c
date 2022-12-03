@@ -6,12 +6,13 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 22:21:47 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 23:54:58 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
 #include "meta.h"
+#include "print_memory.h"
 #include <unistd.h>
 
 void *
@@ -152,4 +153,34 @@ ft_putnbr (
 	if (nb > 9)
 		ft_putnbr(nb / 10, fd);
 	_ft_putchar(nb % 10 + 48, fd);
+}
+
+void
+error_printer (
+    void * ptr,
+    const char * func_name,
+    const char * message,
+    const metadata meta,
+    const metadata meta2 )
+{
+    PUTERR("=================================================================\n")
+    WARNING(func_name)
+    PUTERR(": ")
+    PUTERR(message)
+    PUTERR("\n\n")
+    if (ptr) {
+        PUTERR("=== Memory freed ===\n\n")
+        ft_print_memory(ptr, 128);
+    } else {
+        PUTERR("This address is not in the heap === ");
+        PUTADDRR(ptr)
+        PUTERR("\n");
+    }
+    PUTERR(BHCYAN"\nFunction called by >>> \n\t"YELLOWHB);
+    PRINT_CALL_LOCATION(meta);
+    if (meta2.file != NULL) {
+        PUTERR(RESET BHCYAN"\n\nPreviously freed by >>> \n\t"YELLOWHB);
+        PRINT_CALL_LOCATION(meta2);
+    }
+    PUTERR(RESET"\n=================================================================\n")
 }

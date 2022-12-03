@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:21 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 22:47:49 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 23:15:15 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,26 +137,6 @@ compute_expandable_size (
         size += free_space_left(b);
     }
     return (size);
-}
-
-NONNULL
-void
-expand (
-    slot * s,
-    const size_type len,
-    const size_type len_available )
-{
-    /*
-        if (len_available > len) {
-            s->next = (void *)s + len + SIZEOF_SLOT;
-            s->next->state = FREED;
-            s->next->next = (void *)s + len_available + SIZEOF_SLOT;
-            s->next->next->state = EOB;
-        } else {
-            s->next = (void *)s + len_available + SIZEOF_SLOT;
-            s->next->state = EOB;
-        }
-    */
 }
 
 NONNULL

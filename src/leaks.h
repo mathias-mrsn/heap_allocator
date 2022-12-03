@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:09:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/29 20:27:21 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 23:14:46 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "bucket.h"
 #include "commun.h"
 
-# if (LEAK_SAFERY == true)
+# if (LEAK_SAFERY == 1)
 
 void
 leak_safety (void) DESTRUCTOR;
