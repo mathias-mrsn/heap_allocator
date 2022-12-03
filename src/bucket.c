@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 13:32:18 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 22:33:03 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ new_bucket (
     const zone_type zone,
     const size_type size)
 {
-    const size_t    size_to_allocated = GET_SIZE(zone, size) + SIZEOF_BUCKET;
+    const size_t    size_to_allocated = GET_SIZE(zone, size) + SIZEOF_BUCKET + SIZEOF_SLOT;
     bucket *bucket = mmap(NULL, size_to_allocated, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 
     if (bucket == MAP_FAILED) {
@@ -34,12 +34,9 @@ new_bucket (
     ft_memset(bucket, 0, size_to_allocated);
     bucket->ptr = (void *)bucket + SIZEOF_BUCKET;
     bucket->zone = zone;
-    if (zone == LARGE) {
-        bucket->size_allocated = size;
-    } else {
-        bucket->last = (void *)bucket->ptr;
-        bucket->last->state = EOB;
-    }
+    bucket->last = (void *)bucket->ptr;
+    bucket->last->state = EOB;
+    bucket->size_allocated = size_to_allocated;
     return (bucket);
 }
 
@@ -67,8 +64,7 @@ void
 destroy_bucket (
     bucket *bucket )
 {
-    const size_type size = GET_SIZE(bucket->zone, bucket->size_allocated) + SIZEOF_BUCKET;
-    if (munmap(bucket, size)) {
+    if (munmap(bucket, bucket->size_allocated)) {
         MALLOC_DEBUG("malloc: munmap() failed\n")
         return;
     }

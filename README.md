@@ -2,6 +2,11 @@
 
 TODO:
 
+- [ ] rework malloc to create one slot in the ZONE_TYPE is LARGE
+
+
+
+- [ ] rework free() function
 - [ ] defragmentation function
 - [ ] realloc
 - [ ] print_memory

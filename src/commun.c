@@ -6,11 +6,12 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/11/28 13:15:43 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 22:21:47 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
+#include "meta.h"
 #include <unistd.h>
 
 void *
@@ -107,19 +108,20 @@ ft_putstr (
 
 void
 ft_putaddr (
-	void * addr)
+	void * addr,
+    const int fd)
 {
 	size_t	address;
 	size_t	div;
 
 	div = 16;
 	address = (size_t)addr;
-	write(1, "0x", 2);
+	write(fd, "0x", 2);
 	while (address / div > 15)
 		div *= 16;
 	while (div > 0)
 	{
-		write(1, &HEXA_LOWER[address / div], 1);
+		write(fd, &HEXA_LOWER[address / div], 1);
 		address %= div;
 		div /= 16;
 	}
@@ -128,14 +130,16 @@ ft_putaddr (
 PRIVATE
 void
 _ft_putchar (
-	const char c )
+	const char c,
+    const int fd )
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 }
 
 void
 ft_putnbr (
-	int64_t n)
+	int64_t n,
+    const int fd)
 {
 	uint64_t	nb;
 
@@ -144,9 +148,8 @@ ft_putnbr (
 	else
 		nb = n;
 	if (n < 0)
-		write(1, "-", 1);
+		write(fd, "-", 1);
 	if (nb > 9)
-		ft_putnbr(nb / 10);
-	_ft_putchar(nb % 10 + 48);
+		ft_putnbr(nb / 10, fd);
+	_ft_putchar(nb % 10 + 48, fd);
 }
-

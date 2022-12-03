@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <time.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 #include <commun.h>
 #include "slot.h"
 
@@ -36,21 +36,30 @@ main () {
     char *str8 = malloc(1000);
     char *str9 = malloc(100000000);
 
-    free(str3);
+    free(str3 + 10);
     free(str4);
+    free(str5);
     free(str5);
     free(str6);
     free(str7);
-    free(str8);
+    // free(str8 + 100);
+    // free(str9 + 100);
+    // free(str8);
     // free(str2 + 2);
     // char *str6 = malloc(400);
+
+    /*    SEGV      */
+
+    // slot * s = NULL;
+
+    // PUTNBR(s->state);
 
     // free_heap();
 
     show_alloc_mem();
-    char * tmp = realloc(str9, 40000000);
-    str3 = realloc(str3, 2000);
-    show_alloc_mem();
+    // char * tmp = realloc(str9, 40000000);
+    // str3 = realloc(str3, 2000);
+    // show_alloc_mem();
 
     // char *str7 = malloc(400);
 

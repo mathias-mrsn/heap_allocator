@@ -6,15 +6,15 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 13:16:46 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 15:54:22 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "stdbool.h"
+#include "meta.h"
 
-struct s_bucket;
 typedef struct s_bucket bucket;
 typedef size_t size_type;
 
@@ -28,6 +28,7 @@ typedef size_t size_type;
  */
 typedef struct  s_slot {
     char    state; // FREE, USED, FREED
+    metadata meta;
     struct s_slot * next;
 } PACKED        slot;
 #define SIZEOF_SLOT sizeof(struct s_slot)
@@ -48,7 +49,8 @@ enum state {
 void *
 new_slot(
     bucket *bucket,
-    const size_t size);
+    const size_t size,
+    metadata m);
 
 //     void
 // nb_slot (
@@ -66,7 +68,8 @@ void *
 insert_slot (
     bucket* b,
     slot*   s,
-    const size_t  size);
+    const size_t  size,
+    metadata m);
 
 /**
  * @brief Return the size of the slot

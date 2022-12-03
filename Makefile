@@ -10,7 +10,8 @@ SRCS	=	commun.c \
 			show_alloc_mem_internal.c \
 			libmalloc.c \
 			defragment_heap_internal.c \
-			realloc_internal.c
+			realloc_internal.c \
+			print_memory.c
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang

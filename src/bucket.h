@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 13:36:27 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:15:48 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,8 @@ typedef size_t  size_type;
  * 
  * @param ptr pointer to the first address of the memory block
  * @param zone type of zone (TINY, SMALL, LARGE)
- * @union {
- *      @param last pointer to the last slot of the block
- *      @param size_allocated size allocated only if the zone is LARGE
- * }
+ * @param last pointer to the last slot of the block
+ * @param size_allocated size allocated
  * @param next pointer to the next block
  * @param prev pointer to the previous block
  * 
@@ -39,10 +37,8 @@ typedef struct  s_bucket
 {
     void    *   ptr;
     zone_type   zone : 2;
-    union {
-        slot *      last;
-        size_t      size_allocated;
-    };
+    slot *      last;
+    size_t      size_allocated;
     struct s_bucket * next;
     struct s_bucket * prev;
 } PACKED        bucket;
@@ -170,7 +166,7 @@ enum type {
     LARGE
 };
 
-#define GET_SIZE(type, size) (type == TINY ? TINY_ZONE : (type == SMALL ? SMALL_ZONE : size))
+#define GET_SIZE(type, size) (type == TINY ? TINY_ZONE : (type == SMALL ? SMALL_ZONE : size + SIZEOF_SLOT))
 #define GET_TYPE(type, size) (type == TINY ? TINY_SIZE : (type == SMALL ? SMALL_SIZE : size))
 #define GET_TYPE_BELOW(type) (type == TINY ? 0 : (type == SMALL ? TINY_SIZE : SMALL_SIZE))
 #define TYPE_MATCHING(size)  (size <= TINY_SIZE ? TINY : (size <= SMALL_SIZE ? SMALL : LARGE))
