@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 00:32:40 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:29:55 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define CONSTRUCTOR __attribute__((constructor))
 #define DESTRUCTOR __attribute__((destructor))
 #define INLINE __attribute__((always_inline))
+#define NONNULL __attribute__((nonnull))
 
 /*
     [TINY][BEGIN]->[...]->[TINY][END]

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 18:22:33 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:32:18 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ new_bucket (
     return (bucket);
 }
 
+NONNULL
 INLINE
 void
 unlink_bucket (
@@ -61,6 +62,7 @@ unlink_bucket (
     }
 }
 
+NONNULL
 void
 destroy_bucket (
     bucket *bucket )
@@ -73,6 +75,7 @@ destroy_bucket (
 }
 
 INLINE
+NONNULL
 void
 push_back (
     bucket *bucket )
@@ -89,6 +92,7 @@ push_back (
 }
 
 INLINE
+NONNULL
 size_type
 free_space_left (
     const bucket *bucket )
@@ -99,6 +103,7 @@ free_space_left (
     return (size_total - (((size_type)slot + SIZEOF_SLOT) - (size_type)bucket->ptr));
 }
 
+NONNULL
 slot *
 search_free_slot (
     const bucket *  bucket,
@@ -112,6 +117,7 @@ search_free_slot (
     return (NULL);
 }
 
+NONNULL
 bucket *
 find (
     const void *ptr )

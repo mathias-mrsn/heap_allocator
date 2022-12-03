@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 17:43:51 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:11:29 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 #include "commun.h"
 #include "leaks.h"
 #include <assert.h>
+
+/*
+    TODO : create define to replace `malloc()` with `__malloc(size_t, __func__, __LINE__, __FILE__)`
+*/
 
 void *
 calloc (

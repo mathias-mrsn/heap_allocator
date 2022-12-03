@@ -14,8 +14,6 @@
 # define DEBUG 0
 # endif
 
-/*
-
 int
 main () {
 
@@ -51,6 +49,7 @@ main () {
 
     show_alloc_mem();
     char * tmp = realloc(str9, 40000000);
+    str3 = realloc(str3, 2000);
     show_alloc_mem();
 
     // char *str7 = malloc(400);
@@ -78,30 +77,4 @@ main () {
     // }
 
     return 0;
-}
-
-*/
-
-#include <stdio.h>
-
-int main(void)
-{
-    int *ptr;
-    int mb = 1048576;
-    int pg_sz = 4096;
-
-    long long int i;
-
-    for (i = 0; i < 1000000000000; i++)
-    {
-        printf("Trying to allocate %lld MBytes\n", i * pg_sz * sizeof(int) / mb );
-
-        ptr = (int*) calloc(pg_sz, sizeof(int));
-        if ( ptr == 0 ) {
-            // clean up
-            free(ptr);
-            printf("Ran out of memory\n");
-            return 1;
-        }
-    }
 }

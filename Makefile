@@ -14,7 +14,7 @@ SRCS	=	commun.c \
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang
-FLAGS	=	-pthread -g3 #-fsanitize=address -g3
+FLAGS	=	-pthread -g3 -fsanitize=address -g3
 INCS	=	-I ./src
 OBJDIR 	=	.objs
 SRCDIR 	= 	./src
@@ -23,7 +23,7 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-DEBUG	=	0
+DEBUG	=	1
 LEAK_SAFETY = 0
 
 _GREY=	$'\033[30m

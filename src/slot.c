@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:21 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 18:31:16 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:31:04 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "bucket.h"
 #include "free_internal.h"
 
+NONNULL
 void *
 new_slot(
     bucket  *bucket,
@@ -36,6 +37,7 @@ new_slot(
 
 //! TODO: I have to test this function, I wrote it in 5 minutes.
 
+NONNULL
 void *
 insert_slot (
     bucket* b,
@@ -62,6 +64,7 @@ insert_slot (
 }
 
 INLINE
+NONNULL
 size_type
 compute_slot_size (
     const slot * s )
@@ -69,6 +72,7 @@ compute_slot_size (
     return ((void*)s->next - ((void *)s + SIZEOF_SLOT));
 }
 
+NONNULL
 slot *
 find_slot (
     const bucket * b,
@@ -82,6 +86,7 @@ find_slot (
     return (NULL);
 }
 
+NONNULL
 int
 free_slot (
     bucket * b,
@@ -100,7 +105,7 @@ free_slot (
                     return (DOUBLE_FREE);
                 }
                 s->state = FREED;
-                merge_freed_slots(b);
+                merge_freed_slots(b); //? TODO: Set this function in define called 'AUTO_DEGRAGMENT' 
                 MALLOC_DEBUG("free: slot freed");
                 if (ptr != (void *)s + SIZEOF_SLOT) {
                     return (MIDDLE_OF_SLOT);
@@ -114,17 +119,59 @@ free_slot (
     return (INVALID_POINTER);
 }
 
-// size_type
-// compute_expandable_size (
-//     const bucket * b,
-//     const slot * s )
-// {
-//     size_type size = 0;
-//     slot *save = s->next;
+NONNULL
+size_type
+compute_expandable_size (
+    const bucket * b,
+    const slot * s )
+{
+    size_type size = 0;
+    slot *save = s->next;
 
-//     while (save && save->state & (FREE | FREED)) {
-//         size += compute_slot_size(save);
-//         save = save->next;
-//     }
-//     return (size);
-// }
+    while (save && save->state & (FREED)) {
+        size += compute_slot_size(save);
+        save = save->next;
+    }
+    if (save && save->state & (EOB)) {
+        size += free_space_left(b);
+    }
+    return (size);
+}
+
+NONNULL
+void
+expand (
+    slot * s,
+    const size_type len,
+    const size_type len_available )
+{
+    /*
+        if (len_available > len) {
+            s->next = (void *)s + len + SIZEOF_SLOT;
+            s->next->state = FREED;
+            s->next->next = (void *)s + len_available + SIZEOF_SLOT;
+            s->next->next->state = EOB;
+        } else {
+            s->next = (void *)s + len_available + SIZEOF_SLOT;
+            s->next->state = EOB;
+        }
+    */
+}
+
+NONNULL
+void *
+find_next_slot_used (
+    const bucket * b,
+    const slot * s )
+{
+
+    slot *save = s->next;
+
+    while (save && save->state & (FREED)) {
+        save = save->next;
+    }
+    if (save && save->state & (EOB)) {
+        return ((void *)b + (GET_SIZE(b->zone, b->size_allocated) + SIZEOF_BUCKET));
+    }
+    return ((void *)save);
+}

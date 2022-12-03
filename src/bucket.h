@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 18:20:08 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:36:27 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ enum mem_access {
  */
 enum type_size {
     TINY_SIZE = 256,
-    SMALL_SIZE = 1024,
+    SMALL_SIZE = 2048,
     LARGE_SIZE = -1
 };
 

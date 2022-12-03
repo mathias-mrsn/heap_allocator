@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 17:53:05 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/03 13:16:46 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,11 @@ find_slot (
  */
 size_type
 compute_expandable_size (
+    const bucket * b,
+    const slot * s );
+
+void *
+find_next_slot_used (
     const bucket * b,
     const slot * s );
 
