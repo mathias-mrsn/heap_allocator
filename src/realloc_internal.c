@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:14:49 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 00:02:22 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:49:09 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ _other_cases (
     }
     
     void * new_ptr = NULL;
-    const void * next_ptr = find_next_slot_used(b, s);
+    const void * next_ptr = find_enough_space(b, s, len);
     const size_type expandable_size = next_ptr - ((void *)s + SIZEOF_SLOT);
+    PUTNBR(expandable_size);
     
     if (expandable_size >= len) {
         MALLOC_DEBUG("realloc(): other cases - pointer not reallocated\n");

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:21 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 23:15:15 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:52:01 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,18 +141,22 @@ compute_expandable_size (
 
 NONNULL
 void *
-find_next_slot_used (
+find_enough_space (
     const bucket * b,
-    const slot * s )
+    const slot * s,
+    const size_type len )
 {
 
     slot *save = s->next;
 
     while (save && save->state & (FREED)) {
+        if (((void *)save->next - (((void *)s) + SIZEOF_SLOT)) >= len) {
+            break;
+        }
         save = save->next;
     }
     if (save && save->state & (EOB)) {
         return ((void *)b + (GET_SIZE(b->zone, b->size_allocated) + SIZEOF_BUCKET));
     }
-    return ((void *)save);
+    return ((void *)save->next);
 }

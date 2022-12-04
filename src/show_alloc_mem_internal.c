@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 17:21:01 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 17:25:12 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:53:44 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ _print_bucket (
         PUTADDR((void*)slot + SIZEOF_SLOT);
         PUTSTR(" - ");
         PUTADDR((void *)slot->next);
-        PUTSTR(" | size : ");
-        PUTNBR((size_type)slot->next - ((size_type)slot + SIZEOF_SLOT))
         PUTSTR(" | state : ");
         if (slot->state == USED) {
-            PUTSTR("USED");
+            PUTSTR("USED ");
         } else {
             PUTSTR("FREED");
         }
+        PUTSTR(" | size : ");
+        PUTNBR((size_type)slot->next - ((size_type)slot + SIZEOF_SLOT))
         PUTSTR("\n");
     }
 }

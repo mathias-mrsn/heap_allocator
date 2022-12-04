@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:39:05 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 00:02:43 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 11:57:04 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include "slot.h"
 #include "thread_safety.h"
 #include "free_internal.h"
-
-/*   PRINT HELPER   */
 
 INLINE
 void

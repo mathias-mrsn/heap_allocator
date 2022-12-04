@@ -36,7 +36,7 @@ main () {
     char *str8 = malloc(1000);
     char *str9 = malloc(100000000);
 
-    free(str3 + 10);
+    // free(str3 + 10);
     free(str4);
     free(str5);
     free(str5);
@@ -56,9 +56,14 @@ main () {
 
     // free_heap();
 
-    show_alloc_mem();
     // char * tmp = realloc(str9, 40000000);
-    // str3 = realloc(str3, 2000);
+    str3 = realloc(str3, 1300);
+    show_alloc_mem();
+
+    char * str10 = malloc(257);
+
+    show_alloc_mem();
+
     // show_alloc_mem();
 
     // char *str7 = malloc(400);

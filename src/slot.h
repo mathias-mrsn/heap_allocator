@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 15:54:22 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 12:33:07 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,10 @@ compute_expandable_size (
     const slot * s );
 
 void *
-find_next_slot_used (
+find_enough_space (
     const bucket * b,
-    const slot * s );
+    const slot * s ,
+    const size_type len);
 
 #define FOREACH_SLOT(bucket_name, slot_name) \
     for (slot * slot_name = bucket_name->ptr; slot_name != NULL && slot_name->state != EOB ; slot_name = slot_name->next)
