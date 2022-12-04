@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:15:37 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 23:24:47 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 13:35:16 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,6 @@ show_alloc_mem (void);
 
 void
 free_heap (void);
+
+void
+leaks (void);

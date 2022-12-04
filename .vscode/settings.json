@@ -18,7 +18,8 @@
         "vector": "c",
         "realloc_internal.h": "c",
         "free_internal.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "bucket.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled",
     "editor.tokenColorCustomizations": {

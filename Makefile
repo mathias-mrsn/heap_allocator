@@ -5,13 +5,14 @@ SRCS	=	commun.c \
 			bucket.c \
 			main.c \
 			slot.c \
-			leaks.c \
+			leaks_safety.c \
 			free_internal.c \
 			show_alloc_mem_internal.c \
 			libmalloc.c \
 			defragment_heap_internal.c \
 			realloc_internal.c \
-			print_memory.c
+			print_memory.c \
+			leaks_internal.c
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang
@@ -26,6 +27,7 @@ endif
 
 DEBUG	=	1
 LEAK_SAFETY = 0
+CHECK_ALL = 1
 
 _GREY=	$'\033[30m
 _RED=	$'\033[31m
@@ -42,11 +44,11 @@ all:		${NAME}
 $(OBJDIR)/%.o: ${SRCDIR}/%.c
 			@mkdir -p ${OBJDIR}
 			@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"
-			@${CC} ${FLAGS} ${INCS} -c $< -o $@ -D DEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY}
+			@${CC} ${FLAGS} ${INCS} -c $< -o $@ -D DEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -D CHECK_ALL=${CHECK_ALL}
 
 ${NAME}:	init ${OBJS}		
 			@printf "%-15s ${_PURPLE}${_BOLD}${NAME}${_END}...\n" "Compiling"
-			@${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} -DDEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY}
+			@${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} -DDEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -D CHECK_ALL=${CHECK_ALL}
 			@printf "\n${_GREEN}${_BOLD}Compilation done !${_END}\n"
 
 clean:		

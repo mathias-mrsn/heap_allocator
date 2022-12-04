@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 23:25:55 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 13:28:09 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 #include "defragment_heap_internal.h"
 #include "realloc_internal.h"
 #include "show_alloc_mem_internal.h"
+#include "leaks_internal.h"
 
 #include "commun.h"
-#include "leaks.h"
+#include "leaks_safety.h"
 #include <assert.h>
 
 void *
@@ -74,20 +75,6 @@ show_alloc_mem (void)
     show_alloc_mem_internal();
 }
 
-void
-free_heap (void)
-{
-#if (LEAK_SAFETY == 1)
-    WARNING(BWHITE"free_heap()"RESET" : LEAK_SAFETY is on, the program will be freed at the end automatically\n");
-#endif
-    leak_safety();
-}
-
-// void
-// defragment_heap (void) {
-//     defragment_heap_internal();
-// }
-
 void *
 __realloc (
     void * ptr,
@@ -104,3 +91,22 @@ __realloc (
     }
     return (NULL);
 }
+
+void
+free_heap (void)
+{
+#if (LEAK_SAFETY == 1)
+    WARNING(BWHITE"free_heap()"RESET" : LEAK_SAFETY is on, the program will be freed at the end automatically\n");
+#endif
+    leak_safety();
+}
+
+void
+leaks (void) {
+    leaks_internal();
+}
+
+// void
+// defragment_heap (void) {
+//     defragment_heap_internal();
+// }

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 22:33:03 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 15:20:34 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,18 @@ compute_space_left (
         }
     }
     return (space_left);
+}
+
+int
+is_freed (
+    const bucket * bucket )
+{
+    FOREACH_SLOT (bucket, slot) {
+        if (!(slot->state & FREED)) {
+            return (false);
+        }
+    }
+    return (true);
 }
 
 

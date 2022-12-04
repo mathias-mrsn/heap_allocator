@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 17:15:48 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 15:23:45 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,10 @@ glue_slots (
 void
 merge_freed_slots (
     bucket * bucket);
+
+int
+is_freed (
+    const bucket * b );
 
 /**
  * @brief Minimun of slot a zone must have.

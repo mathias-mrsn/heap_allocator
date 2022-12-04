@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   leaks.c                                            :+:      :+:    :+:   */
+/*   leaks_safety.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:10:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/02 18:12:10 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/04 13:15:58 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "leaks.h"
+#include "leaks_safety.h"
 #include "commun.h"
 #include "show_alloc_mem_internal.h"
 #include <sys/mman.h>

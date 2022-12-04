@@ -34,9 +34,12 @@ main () {
     char *str6 = malloc(1000);
     char *str7 = malloc(1000);
     char *str8 = malloc(1000);
-    char *str9 = malloc(100000000);
+    // char *str9 = malloc(100000000);
 
-    // free(str3 + 10);
+    free(str1);
+
+    leaks();
+
     free(str4);
     free(str5);
     free(str5);
@@ -61,6 +64,8 @@ main () {
     show_alloc_mem();
 
     char * str10 = malloc(257);
+
+    leaks();
 
     show_alloc_mem();
 

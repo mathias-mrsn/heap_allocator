@@ -2,8 +2,8 @@
 
 TODO:
 
-- [ ] rework malloc to create one slot in the ZONE_TYPE is LARGE
 
+- [ ] Recreate valgrind system
 
 
 - [ ] rework free() function
