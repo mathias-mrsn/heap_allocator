@@ -6,13 +6,12 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 13:47:19 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 23:54:58 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:15:46 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.h"
 #include "meta.h"
-#include "print_memory.h"
 #include <unistd.h>
 
 void *
@@ -167,20 +166,21 @@ error_printer (
     WARNING(func_name)
     PUTERR(": ")
     PUTERR(message)
+#if (CHECK_ALL)
     PUTERR("\n\n")
     if (ptr) {
         PUTERR("=== Memory freed ===\n\n")
-        ft_print_memory(ptr, 128);
+        ft_print_memory(ptr, 256);
     } else {
-        PUTERR("This address is not in the heap === ");
-        PUTADDRR(ptr)
+        PUTERR("This address is not in the heap");
         PUTERR("\n");
     }
-    PUTERR(BHCYAN"\nFunction called by >>> \n\t"YELLOWHB);
+    PUTERR("\nFunction called at: ");
     PRINT_CALL_LOCATION(meta);
     if (meta2.file != NULL) {
-        PUTERR(RESET BHCYAN"\n\nPreviously freed by >>> \n\t"YELLOWHB);
+        PUTERR(RESET"\n\nPreviously freed at: ");
         PRINT_CALL_LOCATION(meta2);
     }
+#endif
     PUTERR(RESET"\n=================================================================\n")
 }

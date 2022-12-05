@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:03 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 13:11:45 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:51:22 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef size_t size_type;
  */
 typedef struct  s_slot {
     char    state; // FREE, USED, FREED
+#if (CHECK_ALL)
     metadata meta;
+#endif
     struct s_slot * next;
 } PACKED        slot;
 #define SIZEOF_SLOT sizeof(struct s_slot)
@@ -40,11 +42,7 @@ enum state {
 };
 
 /**
- * @brief Create a new slot at the end of the bucket.
- * 
- * @param bucket The bucket to which the slot belongs
- * @param size The amount of memory asked.
- * @return void* Return the address of the slot ptr 
+ * @brief Create a new slot at the end of the bucket. 
  */
 void *
 new_slot(
@@ -58,11 +56,6 @@ new_slot(
 
 /**
  * @brief Insert a slot inside the bucket. Only if a usuned slot is found.
- * 
- * @param b Bucket to which the slot belongs
- * @param s Location of the free slot
- * @param size Size of the memory asked
- * @return void* Pointer to the slot ptr
  */
 void *
 insert_slot (
@@ -73,9 +66,6 @@ insert_slot (
 
 /**
  * @brief Return the size of the slot
- * 
- * @param s Current slot to compute
- * @return size_type Size of the slot
  */
 size_type
 compute_slot_size (
@@ -83,10 +73,6 @@ compute_slot_size (
 
 /**
  * @brief Return the slot that contains the ptr
- * 
- * @param b Current bucket
- * @param ptr Pointer to find
- * @return slot* Slot that contains the ptr
  */
 slot *
 find_slot (
@@ -95,10 +81,6 @@ find_slot (
 
 /**
  * @brief Return the amount of space that can be expanded
- * 
- * @param b Current bucket
- * @param s Current slot
- * @return size_type Value computed
  */
 size_type
 compute_expandable_size (

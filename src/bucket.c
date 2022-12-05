@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:45:53 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 15:20:34 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:42:18 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ new_bucket (
     const size_type size)
 {
     const size_t    size_to_allocated = GET_SIZE(zone, size) + SIZEOF_BUCKET + SIZEOF_SLOT;
-    bucket *bucket = mmap(NULL, size_to_allocated, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+    bucket *bucket = mmap(NULL, size_to_allocated, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
     if (bucket == MAP_FAILED) {
         MALLOC_DEBUG("malloc: mmap() failed");
@@ -126,14 +126,6 @@ find (
         }
     }
     return (NULL);
-}
-
-//* I have to find a smart way to degragment the bucket
-int
-glue_slots (
-    const bucket * bucket)
-{
-    return (1);
 }
 
 void

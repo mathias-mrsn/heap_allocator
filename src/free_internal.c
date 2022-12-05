@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:39:05 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 11:57:04 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:12:58 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ free_internal (
                 _FREE_ERR_DF(ptr)
             } else if (s->state & USED) {
                 s->state = FREED;
+#if (CHECK_ALL)
                 s->meta = m;
+#endif
                 if (ptr != (void *)s + SIZEOF_SLOT) {
                     _FREE_ERR_MS((void *)s + SIZEOF_SLOT)
                 }
@@ -57,6 +59,7 @@ free_internal (
                 _FREE_ERR_IP(ptr)
             }
         }
+        // TODO: remove bucket if all slots are freed
     }
     
     THREAD_SAFETY(unlock);

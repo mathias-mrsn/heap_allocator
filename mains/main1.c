@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// #include "../inc/libmalloc.h"
+
 int main(void)
 {
     int *ptr;
@@ -9,7 +11,7 @@ int main(void)
 
     long long int i;
 
-    for (i = 0; i < 1000000000000; i++)
+    for (i = 0; i < 10000; i++)
     {
         printf("Trying to allocate %lld MBytes\n", i * pg_sz * sizeof(int) / mb );
 

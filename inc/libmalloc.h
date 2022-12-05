@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:15:37 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 13:35:16 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:02:03 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #define free(x)     (__free(x, __func__, __FILE__, __LINE__))
 #define realloc(x, y)   (__realloc(x, y, __func__, __FILE__, __LINE__))
 #define calloc(x, y)    (__calloc(x, y, __func__, __FILE__, __LINE__))
+#define show_alloc_mem_ex()    (leaks())
 
 void *
 __calloc (
@@ -55,5 +56,14 @@ show_alloc_mem (void);
 void
 free_heap (void);
 
+#if (LEAKS)
+
+void
+leaks (void) __attribute__((destructor));
+
+#else
+
 void
 leaks (void);
+
+#endif

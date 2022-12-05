@@ -22,7 +22,6 @@ main () {
 // # endif
     // char *str = malloc(100);
 
-    PUTNBR(sizeof(struct s_slot));
     PUTSTR("\n");
 
 
@@ -38,10 +37,9 @@ main () {
 
     free(str1);
 
-    leaks();
+    // leaks();
 
-    free(str4);
-    free(str5);
+    free(str4 + 10);
     free(str5);
     free(str6);
     free(str7);
@@ -60,14 +58,15 @@ main () {
     // free_heap();
 
     // char * tmp = realloc(str9, 40000000);
-    str3 = realloc(str3, 1300);
-    show_alloc_mem();
+    str3 = realloc(0x43223f3, 1300);
+    // show_alloc_mem();
 
     char * str10 = malloc(257);
 
-    leaks();
+    // leaks();
+    show_alloc_mem_ex();
 
-    show_alloc_mem();
+    // show_alloc_mem();
 
     // show_alloc_mem();
 

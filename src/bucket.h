@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 14:20:36 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 15:23:45 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:38:26 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ typedef struct  s_bucket
 
 /**
  * @brief Allocate a new bucket.
- * 
- * @return bucket* 
  */
 bucket *
 new_bucket (
@@ -56,8 +54,6 @@ new_bucket (
 
 /**
  * @brief Unlink the bucket from the linked list
- * 
- * @param b Bucket to unlink
  */
 void
 unlink_bucket (
@@ -65,8 +61,6 @@ unlink_bucket (
 
 /**
  * @brief Munmap the current bucket.
- * 
- * @param bucket The current bucket.
  */
 void
 destroy_bucket (
@@ -74,8 +68,6 @@ destroy_bucket (
 
 /**
  * @brief Push a bucket at the end of the memory list.
- * 
- * @param bucket bucket to push
  */
 void
 push_back (
@@ -83,9 +75,6 @@ push_back (
 
 /**
  * @brief Return the amount of free space left at the end of the block.
- * 
- * @param bucket pointer to the block
- * @return size_type 
  */
 size_type
 free_space_left (
@@ -93,10 +82,6 @@ free_space_left (
 
 /**
  * @brief Return a slot if this slot has enough space.
- * 
- * @param bucket current to bucket to check 
- * @param size size of the memory asked
- * @return slot* 
  */
 slot *
 search_free_slot (
@@ -105,33 +90,21 @@ search_free_slot (
 
 /**
  * @brief Search a bucket by its pointer.
- * 
- * @param ptr Pointer to search
- * @return bucket* Bucket where ptr has been found, NULL otherwise.
  */
 bucket *
 find (
     const void *ptr );
 
 /**
- * @brief Remove every free space between each slots.
- * 
- * @param bucket The current bucket
- * @return int 
- */
-int
-glue_slots (
-    const bucket * bucket);
-
-/**
  * @brief Merge every free space between each slots.
- * 
- * @param bucket The current bucket
  */
 void
 merge_freed_slots (
     bucket * bucket);
 
+/**
+ * @brief Check if the bucket is empty.
+*/
 int
 is_freed (
     const bucket * b );

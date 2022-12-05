@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 17:55:34 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 15:24:58 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:37:30 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 
 /**
  * @brief Allocate N bytes of memory.
- * 
- * @param size The number of bytes to allocate.
- * @return void* Pointer to the slot of memory.
  */
 void *
 malloc_internal (

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 13:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 18:42:28 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:41:14 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 /* PRINT HELPER */
 
+#if (CHECK_ALL)
+
 PRIVATE
 void
 _print_slot (
@@ -27,15 +29,16 @@ _print_slot (
     PUTERR("=== ")
     PUTNBRR(compute_slot_size(s))
     PUTERR(" bytes are possibly lost\n")
-    PUTERR("=== \t at: "YELLOWHB)
+    PUTERR("=== \t at: ")
     PUTERR(s->meta.func)
-    PUTERR("(")
+    PUTERR(" (")
     PUTERR(s->meta.file)
     PUTERR(":")
     PUTNBRR(s->meta.line)
     PUTERR(")"RESET"\n===\n")
 }
 
+#endif
 
 PRIVATE
 void
@@ -46,7 +49,7 @@ _print_all (
     bucket * b;
 
     PUTERR("=================================================================\n")
-    PUTERR("=== "BHPURPLE"leaks(): a memory leak detector\n"RESET"===\n")
+    PUTERR("=== "BPURPLE"leaks(): a memory leak detector\n"RESET"===\n")
     PUTERR("=== Heap summary: \n")
     PUTERR("=== \tin use at the exit: ")
     PUTNBRR(bytes_count)

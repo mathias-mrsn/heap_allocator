@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 16:10:31 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 13:15:58 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:13:19 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ _clear_zone (
     while (current) {
         del = current;
         current = current->next;
-        size = GET_SIZE(zone_type, del->size_allocated) + SIZEOF_BUCKET;
-        if (munmap(del, size)) {
-            MALLOC_DEBUG("malloc: munmap() failed\n")
+        if (munmap(del, del->size_allocated) == SYSCALL_ERR) {
+            MALLOC_ERROR("malloc(): munmap() failed\n")
             return;
         }
     }
 }
 
-# if (LEAK_SAFETY == 1)
+# if (LEAK_SAFETY == 1 && LEAKS == 0)
 DESTRUCTOR
 #endif
 void
@@ -50,7 +49,7 @@ leak_safety (void)
     _clear_zone(TINY);
     _clear_zone(SMALL);
     _clear_zone(LARGE);
-    ft_memset(&memory, 0, sizeof(bucket *) * 6);    
+    ft_memset(&memory, 0, sizeof(bucket *) * 3);    
 
 # if (LEAK_SAFETY == 0)
     THREAD_SAFETY(unlock);

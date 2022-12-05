@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:16:25 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 13:28:09 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:00:50 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ free_heap (void)
     leak_safety();
 }
 
+#if (LEAKS)
+DESTRUCTOR
+#endif
 void
 leaks (void) {
     leaks_internal();

@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:14:41 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 00:02:09 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:54:06 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ realloc_internal (
 
 */
 
+#if (CHECK_ALL)
+
 #define _REALLOC_ERR_IP(x) \
         error_printer(  x, \
                         "realloc()", \
@@ -65,3 +67,28 @@ realloc_internal (
                         "this pointer isn't at the begin of a slot === the entire slot has been freed", \
                         m, \
                         (metadata){NULL, NULL, 0});
+
+#else
+
+#define _REALLOC_ERR_IP(x) \
+        error_printer(  x, \
+                        "realloc()", \
+                        "invalid pointer === cannot realloc a unknown address", \
+                        (metadata){NULL, NULL, 0}, \
+                        (metadata){NULL, NULL, 0});
+
+#define _REALLOC_ERR_DF(x) \
+        error_printer(  x, \
+                        "realloc()", \
+                        "realloc freed pointer === this address cannot be reallocate", \
+                        (metadata){NULL, NULL, 0}, \
+                        (metadata){NULL, NULL, 0});
+
+#define _REALLOC_ERR_MS(x) \
+        error_printer(  x, \
+                        "realloc()", \
+                        "this pointer isn't at the begin of a slot === the entire slot has been freed", \
+                        (metadata){NULL, NULL, 0}, \
+                        (metadata){NULL, NULL, 0});
+
+#endif

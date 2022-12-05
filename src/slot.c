@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 14:10:21 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 13:11:57 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:51:03 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ new_slot(
     slot->next->state = EOB;
     slot->state = USED;    
     bucket->last = slot->next;
+#if (CHECK_ALL)
     slot->meta = m;
+#endif
     
     return ((void *)slot + SIZEOF_SLOT);
 }
@@ -55,7 +57,9 @@ insert_slot (
     } else {
         MALLOC_DEBUG("malloc: insert_slot(): use old slot");
     }
+#if (CHECK_ALL)
     s->meta = m;
+#endif
     s->state = USED;
     
     return ((void *)s + SIZEOF_SLOT);

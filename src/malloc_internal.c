@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:26:09 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 17:13:07 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:11:24 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ _search_space (
     for (bucket *bucket = memory[zone]; bucket != NULL; bucket = bucket->next) {
         slot *slot;
         if ((slot = search_free_slot(bucket, size)) != NULL) {
-            MALLOC_DEBUG("malloc: slot added in a old slot")
+            MALLOC_DEBUG("malloc(): use a freed slot")
             ret = insert_slot(bucket, slot, size, m);
             return (ret);
         }
         if (free_space_left(bucket) >= size) {
-            MALLOC_DEBUG("malloc: slot added at the end of the bucket")
+            MALLOC_DEBUG("malloc: new slot added")
             ret = new_slot(bucket, size, m);
             return (ret);
         }
@@ -60,7 +60,7 @@ malloc_internal (
     void * ret = NULL;
     
     if (size <= SMALL_SIZE && (ret = _search_space(size, m)) != NULL) {
-        MALLOC_DEBUG("malloc: found space in bucket");
+        MALLOC_DEBUG("malloc(): enough space has been found in old bucket");
         THREAD_SAFETY(unlock);
         return (ret);
     } else {
@@ -68,12 +68,13 @@ malloc_internal (
         bucket * b = new_bucket(zone, size);
 
         if (b == NULL || b == MAP_FAILED) {
-            MALLOC_DEBUG("malloc: new_bucket failed");
+            MALLOC_ERROR("malloc(): new_bucket() failed");
             THREAD_SAFETY(unlock);
             return (NULL);
         }
         push_back(b);
         ret = new_slot(b, size, m);
+        MALLOC_DEBUG("malloc(): new bucket has been created");
     }
     
     THREAD_SAFETY(unlock);

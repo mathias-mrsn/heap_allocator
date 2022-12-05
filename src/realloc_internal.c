@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:14:49 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/04 12:49:09 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:14:47 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ _other_cases (
     void * new_ptr = NULL;
     const void * next_ptr = find_enough_space(b, s, len);
     const size_type expandable_size = next_ptr - ((void *)s + SIZEOF_SLOT);
-    PUTNBR(expandable_size);
     
     if (expandable_size >= len) {
         MALLOC_DEBUG("realloc(): other cases - pointer not reallocated\n");
@@ -92,9 +91,10 @@ realloc_internal (
 {
     bucket * b = find(ptr);
     void * new_ptr = NULL;
+    metadata m = {func, file, line};
     
     if (!b) {
-        WARNING("realloc(): invalid pointer");
+        _REALLOC_ERR_IP(NULL);
         return (NULL);
     }
     if (b->zone == LARGE) {

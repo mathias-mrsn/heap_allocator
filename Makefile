@@ -1,9 +1,8 @@
-NAME	:=	malloc
+NAME	:=	malloc.so
 
 SRCS	=	commun.c \
 			malloc_internal.c \
 			bucket.c \
-			main.c \
 			slot.c \
 			leaks_safety.c \
 			free_internal.c \
@@ -16,7 +15,7 @@ SRCS	=	commun.c \
 
 OBJS	=	$(addprefix ${OBJDIR}/,${SRCS:.c=.o})
 CC		=	clang
-FLAGS	=	-pthread -g3 -fsanitize=address -g3
+FLAGS	=	-pthread -g3 -fPIC
 INCS	=	-I ./src
 OBJDIR 	=	.objs
 SRCDIR 	= 	./src
@@ -25,9 +24,16 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-DEBUG	=	1
-LEAK_SAFETY = 0
+DEBUG	=	0
+
+# if LEAK_SAFETY == 1 then the program will automatically free every leaks at the end of the program
+LEAK_SAFETY = 1
+
+# if CHECK_ALL == 1 the the program will print every details for each malloc, free or realloc call
 CHECK_ALL = 1
+
+# if LEAKS == 1 then the program will print every leaks at the end of the program
+LEAKS = 0
 
 _GREY=	$'\033[30m
 _RED=	$'\033[31m
@@ -44,11 +50,11 @@ all:		${NAME}
 $(OBJDIR)/%.o: ${SRCDIR}/%.c
 			@mkdir -p ${OBJDIR}
 			@printf "%-15s ${_YELLOW}${_BOLD}$<${_END}...\n" "Compiling"
-			@${CC} ${FLAGS} ${INCS} -c $< -o $@ -D DEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -D CHECK_ALL=${CHECK_ALL}
+			@${CC} ${FLAGS} ${INCS} -c $< -o $@ -D DEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -D CHECK_ALL=${CHECK_ALL} -D LEAKS=${LEAKS}
 
 ${NAME}:	init ${OBJS}		
 			@printf "%-15s ${_PURPLE}${_BOLD}${NAME}${_END}...\n" "Compiling"
-			@${CC} ${FLAGS} ${INCS} -o ${NAME} ${OBJS} -DDEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -D CHECK_ALL=${CHECK_ALL}
+			@${CC} ${FLAGS} ${INCS} -shared -o ${NAME} ${OBJS} -DDEBUG=${DEBUG} -DLEAK_SAFETY=${LEAK_SAFETY} -D CHECK_ALL=${CHECK_ALL} -D LEAKS=${LEAKS}
 			@printf "\n${_GREEN}${_BOLD}Compilation done !${_END}\n"
 
 clean:		
@@ -75,6 +81,10 @@ show:
 			@printf "${_GREEN}%-15s${_YELLOW}${FLAGS}${_END}\n" "CFLAGS ="
 
 run:		all
+			@printf "${_GREEN}${_BOLD}Running ${NAME}...${_END}\n"
+			@./${NAME}
+
+rerun:		re
 			@printf "${_GREEN}${_BOLD}Running ${NAME}...${_END}\n"
 			@./${NAME}
 

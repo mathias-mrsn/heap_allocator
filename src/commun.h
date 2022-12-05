@@ -6,7 +6,7 @@
 /*   By: mamaurai <mamaurai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:27:12 by mamaurai          #+#    #+#             */
-/*   Updated: 2022/12/03 23:54:37 by mamaurai         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:10:02 by mamaurai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 #include "meta.h"
 
 
-// **
-//  * @brief Defines to simplify the use of the attributes. 
-//  * 
-//  */
+/**
+ * @brief Defines to simplify the use of the attributes. 
+ */
 #define UNUSED __attribute__((unused))
 #define PACKED __attribute__((packed))
 #define CONSTRUCTOR __attribute__((constructor))
@@ -30,9 +29,16 @@
 #define NONNULL __attribute__((nonnull))
 
 # if (DEBUG == 1)
-#   define MALLOC_DEBUG(x) ft_putstr(x"\n", 1);
+#   define MALLOC_DEBUG(x) \
+            ft_putstr(BYELLOW"malloc === "RESET, 2); \
+            ft_putstr(x"\n", 2);
+            
+#   define MALLOC_ERROR(x) \
+            ft_putstr(BRED"malloc === "RESET, 2); \
+            ft_putstr(x"\n", 2);
 # else
 #   define MALLOC_DEBUG(x)
+#   define MALLOC_ERROR(x)
 # endif
 
 #define WARNING(x)  \
@@ -55,14 +61,6 @@
 #define PUTNBR(x)    ft_putnbr(x, 1);
 #define PUTNBRR(x)   ft_putnbr(x, 2);
 #define PUTERR(x)    ft_putstr(x, 2);
-
-// #define ERROR(x)  \
-//     ft_putstr(BRED, 2); \
-//     ft_putstr("Error: ", 2); \
-//     ft_putstr(WHITE, 2); \
-//     ft_putstr(x, 2); \
-//     ft_putstr(RESET, 2); \
-
 
 # ifdef __SIZEOF_INT128__
     typedef __int128_t	t_wide_int;
@@ -104,3 +102,8 @@ error_printer (
     const char * message,
     const metadata meta,
     const metadata meta2 );
+
+int	*
+ft_print_memory(
+    void *addr,
+    unsigned int size );
