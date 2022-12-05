@@ -3,8 +3,6 @@
 #include <math.h>
 #include <time.h>
 // #include <stdlib.h>
-#include <commun.h>
-#include "slot.h"
 
 
 #define NB_TEST 100
@@ -22,7 +20,6 @@ main () {
 // # endif
     // char *str = malloc(100);
 
-    PUTSTR("\n");
 
 
     char *str1 = malloc(100);
@@ -58,7 +55,7 @@ main () {
     // free_heap();
 
     // char * tmp = realloc(str9, 40000000);
-    str3 = realloc(0x43223f3, 1300);
+    // str3 = realloc(0x43223f3, 1300);
     // show_alloc_mem();
 
     char * str10 = malloc(257);
