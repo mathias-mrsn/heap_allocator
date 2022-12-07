@@ -4,7 +4,7 @@ The sharing of this project on my GitHub aims to help peoples to open their mind
 
 # malloc
 
-**malloc** is a function that aims to recreate functions from the `stdlib.h` library.
+**malloc** is a project that aims to recreate functions from the `stdlib.h` library.
 
 ## Functions
 
